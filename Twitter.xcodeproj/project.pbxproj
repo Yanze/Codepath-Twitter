@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		107080C489F9F7881E3B2D0D /* Pods_Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2990188489CBD6980FBE7D2A /* Pods_Twitter.framework */; };
 		E06CCC6B1E9D3F0F00E8A055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06CCC6A1E9D3F0F00E8A055 /* AppDelegate.swift */; };
-		E06CCC6D1E9D3F0F00E8A055 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06CCC6C1E9D3F0F00E8A055 /* ViewController.swift */; };
 		E06CCC701E9D3F0F00E8A055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CCC6E1E9D3F0F00E8A055 /* Main.storyboard */; };
 		E06CCC721E9D3F0F00E8A055 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E06CCC711E9D3F0F00E8A055 /* Assets.xcassets */; };
 		E06CCC751E9D3F0F00E8A055 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06CCC731E9D3F0F00E8A055 /* LaunchScreen.storyboard */; };
-		E0C42FDE1E9D41A600C3C8F1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FDD1E9D41A600C3C8F1 /* LoginViewController.swift */; };
+		E0C42FE21E9D5BEB00C3C8F1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FE01E9D5BEB00C3C8F1 /* LoginViewController.swift */; };
+		E0C42FE31E9D5BEB00C3C8F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FE11E9D5BEB00C3C8F1 /* ViewController.swift */; };
+		E0C42FEB1E9D5C3C00C3C8F1 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FE91E9D5C3C00C3C8F1 /* Tweet.swift */; };
+		E0C42FEC1E9D5C3C00C3C8F1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FEA1E9D5C3C00C3C8F1 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +24,14 @@
 		BAF2351985BD996313784F19 /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
 		E06CCC671E9D3F0F00E8A055 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E06CCC6A1E9D3F0F00E8A055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E06CCC6C1E9D3F0F00E8A055 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E06CCC6F1E9D3F0F00E8A055 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E06CCC711E9D3F0F00E8A055 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E06CCC741E9D3F0F00E8A055 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E06CCC761E9D3F0F00E8A055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E0C42FDD1E9D41A600C3C8F1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E0C42FE01E9D5BEB00C3C8F1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E0C42FE11E9D5BEB00C3C8F1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E0C42FE91E9D5C3C00C3C8F1 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		E0C42FEA1E9D5C3C00C3C8F1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,15 +84,33 @@
 		E06CCC691E9D3F0F00E8A055 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				E0C42FE81E9D5C3C00C3C8F1 /* Models */,
+				E0C42FDF1E9D5BEB00C3C8F1 /* ViewControllers */,
 				E06CCC6A1E9D3F0F00E8A055 /* AppDelegate.swift */,
-				E06CCC6C1E9D3F0F00E8A055 /* ViewController.swift */,
 				E06CCC6E1E9D3F0F00E8A055 /* Main.storyboard */,
 				E06CCC711E9D3F0F00E8A055 /* Assets.xcassets */,
 				E06CCC731E9D3F0F00E8A055 /* LaunchScreen.storyboard */,
 				E06CCC761E9D3F0F00E8A055 /* Info.plist */,
-				E0C42FDD1E9D41A600C3C8F1 /* LoginViewController.swift */,
 			);
 			path = Twitter;
+			sourceTree = "<group>";
+		};
+		E0C42FDF1E9D5BEB00C3C8F1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E0C42FE01E9D5BEB00C3C8F1 /* LoginViewController.swift */,
+				E0C42FE11E9D5BEB00C3C8F1 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		E0C42FE81E9D5C3C00C3C8F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E0C42FE91E9D5C3C00C3C8F1 /* Tweet.swift */,
+				E0C42FEA1E9D5C3C00C3C8F1 /* User.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +237,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0C42FDE1E9D41A600C3C8F1 /* LoginViewController.swift in Sources */,
-				E06CCC6D1E9D3F0F00E8A055 /* ViewController.swift in Sources */,
+				E0C42FE31E9D5BEB00C3C8F1 /* ViewController.swift in Sources */,
+				E0C42FE21E9D5BEB00C3C8F1 /* LoginViewController.swift in Sources */,
 				E06CCC6B1E9D3F0F00E8A055 /* AppDelegate.swift in Sources */,
+				E0C42FEC1E9D5C3C00C3C8F1 /* User.swift in Sources */,
+				E0C42FEB1E9D5C3C00C3C8F1 /* Tweet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

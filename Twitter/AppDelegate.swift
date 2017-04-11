@@ -49,23 +49,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let twitterClient = BDBOAuth1SessionManager(baseURL: URL(string:"https://api.twitter.com"), consumerKey: "em562xi6NoYL2dVgn1Is6WvEp", consumerSecret: "sCDrzebRhKSuO7csNJp8IaX66Tey6KJbVstFgqsL2SOym6sPGL")
         
         twitterClient?.fetchAccessToken(withPath:"oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential!) in
-            print(accessToken.token)
+//            print(accessToken.token)
             
             twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
                 
-                let user = User(dictionary: response as! Dictionary)
-                print(user.name!)
-                print(user.screenName!)
-                print(user.profileUrl!)
+//                let user = User(dictionary: response as! Dictionary)
+//                print(user.name!)
+//                print(user.screenName!)
+//                print(user.profileUrl!)
                 
                 
                 twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
                     
-//                    let tweets = response as! [Dictionary<String, Any>]
+                    let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
                     
-//                    for tweet in tweets {
-//                        print(tweet)
-//                    }
+                    for tweet in tweets {
+                        print(tweet.text as Any)
+                    }
                     
                 }, failure: { (task, error) in
                     print(error)

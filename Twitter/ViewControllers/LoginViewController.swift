@@ -21,7 +21,6 @@ class LoginViewController: UIViewController {
         client?.login(success: { 
             print("I logged in")
             self.performSegue(withIdentifier: "loginSegue", sender: nil)
-            
         }) { (error: NSError) in
             print(error)
         }

@@ -17,11 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let sb = UIStoryboard(name: "Main", bundle: nil)
         if User.currentUser != nil {
-            print("there is a user\(String(describing: User.currentUser))")
+            print("there is a user\(String(describing: User.currentUser?.name))")
+            let homeVc = sb.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            window?.rootViewController = homeVc
         }
         else {
             print("no current user")
+            let loginVc = sb.instantiateViewController(withIdentifier: "LoginViewController")
+            window?.rootViewController = loginVc
         }
         
         return true

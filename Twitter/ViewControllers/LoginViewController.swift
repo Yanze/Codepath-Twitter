@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         let client = TwitterClient.sharedInstance
-        client.login(success: { 
+        client?.login(success: { 
             print("I logged in")
             
         }) { (error: NSError) in

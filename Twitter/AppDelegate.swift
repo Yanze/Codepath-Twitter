@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // this function called when app switched via a link, this func handle back the link(token)
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        TwitterClient.sharedInstance.handleOpenUrl(url: url)
+        TwitterClient.sharedInstance?.handleOpenUrl(url: url)
         return true
     }
 

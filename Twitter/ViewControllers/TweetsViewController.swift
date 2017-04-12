@@ -17,7 +17,7 @@ class TweetsViewController: UIViewController {
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             for tweet in tweets {
-                print(tweet.text as Any)
+//                print(tweet.text as Any)
             }
         }, failure: { (error: NSError) in
             print(error.localizedDescription)

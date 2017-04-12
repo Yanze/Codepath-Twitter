@@ -28,17 +28,16 @@ class TwitterClient: BDBOAuth1SessionManager {
         } as? (URLSessionDataTask?, Error) -> Void)
     }
     
-    func currentAccount() {
+    func currentAccount(success: @escaping (User) -> Void, failure: @escaping (NSError) -> Void) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
             
-            //                let user = User(dictionary: response as! Dictionary)
-            //                print(user.name!)
-            //                print(user.screenName!)
-            //                print(user.profileUrl!)
-            //                print("account:\(response)")
-        }, failure: { (task, error) in
+            let user = User(dictionary: response as! Dictionary)
+            success(user)
+   
+        }, failure: { (task: URLSessionDataTask?, error: NSError) in
             print("error in twitter client in appdelegate when getting my account info")
-        })
+            failure(error)
+        } as? (URLSessionDataTask?, Error) -> Void)
     }
     
     func login(success:@escaping () -> Void, failure: @escaping (NSError) -> Void) {
@@ -61,7 +60,13 @@ class TwitterClient: BDBOAuth1SessionManager {
     func handleOpenUrl(url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         fetchAccessToken(withPath:"oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential!) -> Void in
-            self.myLoginSuccess?()
+            
+            self.currentAccount(success: { (user: User) in
+                User.currentUser = user
+                self.myLoginSuccess?()
+            }, failure: { (error: NSError) in
+                self.myLoginFailure?(error)
+            })
             
         }, failure: { (error) in
             print("twitter client error in appDelegate: \(error!)")

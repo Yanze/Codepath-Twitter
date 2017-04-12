@@ -44,47 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // this function called when app switched via a link, this func handle back the link(token)
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        let requestToken = BDBOAuth1Credential(queryString: url.query)
         
-        let twitterClient = BDBOAuth1SessionManager(baseURL: URL(string:"https://api.twitter.com"), consumerKey: "em562xi6NoYL2dVgn1Is6WvEp", consumerSecret: "sCDrzebRhKSuO7csNJp8IaX66Tey6KJbVstFgqsL2SOym6sPGL")
-        
-        twitterClient?.fetchAccessToken(withPath:"oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential!) in
-//            print(accessToken.token)
-            
-            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-                
-//                let user = User(dictionary: response as! Dictionary)
-//                print(user.name!)
-//                print(user.screenName!)
-//                print(user.profileUrl!)
-                
-                
-                twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-                    
-                    let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
-                    
-                    for tweet in tweets {
-                        print(tweet.text as Any)
-                    }
-                    
-                }, failure: { (task, error) in
-                    print(error)
-                })
-                
-                
-//                print("account:\(response)")
-            }, failure: { (task, error) in
-                print("error in twitter client in appdelegate when getting my account info")
-            })
-            
-            
-        }, failure: { (error) in
-            print("twitter client error in appDelegate: \(error!)")
-        })
-        
+        TwitterClient.sharedInstance.handleOpenUrl(url: url)
         return true
     }
 
+    
 
 }
 

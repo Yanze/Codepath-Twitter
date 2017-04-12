@@ -22,12 +22,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
-            for tweet in tweets {
-                print(tweet.text as Any)
-                print(tweet.createdAt as Any)
-                print(tweet.favoCount)
-                print(tweet.retweetCount)
-            }
+            self.tableView.reloadData()
+//            for tweet in tweets {
+//                print(tweet.text as Any)
+//                print(tweet.createdAt as Any)
+//                print(tweet.favoCount)
+//                print(tweet.retweetCount)
+//                print(tweet.user as Any)
+//            }
         }, failure: { (error: NSError) in
             print(error.localizedDescription)
         })

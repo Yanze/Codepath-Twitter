@@ -13,6 +13,7 @@ class Tweet: NSObject {
     var createdAt: Date?
     var retweetCount: Int = 0
     var favoCount: Int = 0
+    var user: Dictionary<String, Any>?
     
     init(dictionary: Dictionary<String, Any>) {
         text = dictionary["text"] as? String
@@ -24,6 +25,8 @@ class Tweet: NSObject {
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z Y"
             createdAt = formatter.date(from: createdTime)
         }
+        
+        user = dictionary["user"] as? Dictionary
     }
     
     static func tweets(dictionaries: [Dictionary<String, Any>]) -> [Tweet] {

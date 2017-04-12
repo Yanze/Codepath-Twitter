@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AFNetworking
+
 
 class TweetCell: UITableViewCell {
     
@@ -23,7 +25,29 @@ class TweetCell: UITableViewCell {
 
     var tweet: Tweet? {
         didSet {
-//            if let name = tweet.n
+
+            let userName = tweet?.user?["name"] as? String
+            if let name = userName {
+                nameLabel.text = name
+            }
+            
+            if let text =  tweet?.text {
+                tweetTextLabel.text = text
+            }
+            
+            if let imgLink = tweet?.user?["profile_image_url"] as? String {
+                userProfileImgView.setImageWith(URL(string: imgLink)!)
+            }
+            
+            if let likes = tweet?.favoCount {
+                likeCountLabel.text = String(likes)
+            }
+            
+            if let retweets = tweet?.retweetCount {
+                retweetCountLabel.text = String(retweets)
+            }
+            
+            replyCountLabel.text = String(0)
         }
         
         

@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let homeVc = sb.instantiateViewController(withIdentifier: "TweetsNavigationController")
             window?.rootViewController = homeVc
         }
-        else {
-            print("no current user")
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil, queue: OperationQueue.main) { (Notification) in
             let loginVc = sb.instantiateViewController(withIdentifier: "LoginViewController")
-            window?.rootViewController = loginVc
+            self.window?.rootViewController = loginVc
         }
         
         return true

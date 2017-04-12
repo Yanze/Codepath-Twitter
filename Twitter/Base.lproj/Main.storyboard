@@ -69,7 +69,18 @@
                             <constraint firstItem="ccV-td-uuH" firstAttribute="top" secondItem="chS-Sg-OVF" secondAttribute="bottom" id="NMP-u8-Lzp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="DXv-ia-KPP"/>
+                    <navigationItem key="navigationItem" id="DXv-ia-KPP">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="owF-mw-D0u">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="85k-cR-Zbs">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logout:" destination="U62-RN-51w" eventType="touchUpInside" id="xE7-Y4-i4I"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMa-eD-7vk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

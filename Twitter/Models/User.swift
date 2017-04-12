@@ -17,6 +17,7 @@ class User: NSObject {
     var tahLine: String?
     
     var dictionary: [String: Any]?
+    static let userDidLogoutNotification = "UserDidLogout"
     
     init(dictionary: Dictionary<String, Any>) {
         self.dictionary = dictionary
@@ -35,8 +36,8 @@ class User: NSObject {
             let defaults = UserDefaults.standard
             let userData = defaults.object(forKey: "currentUserData") as? Data
             if let userData = userData {
-                let dictionary = try! JSONSerialization.jsonObject(with: userData, options: [])
-                _currentUser = User(dictionary: dictionary as! Dictionary<String, Any>)
+                let dictionary = try! JSONSerialization.jsonObject(with: userData, options: []) as! Dictionary<String, Any>
+                _currentUser = User(dictionary: dictionary)
             }
             return _currentUser
         }

@@ -24,6 +24,11 @@ class TweetsViewController: UIViewController {
         })
        
     }
+    
+    @IBAction func logout(_ sender: UIButton) {
+        TwitterClient.sharedInstance?.logout()
+    }
+    
 
 
 

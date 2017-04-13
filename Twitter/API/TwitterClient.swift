@@ -60,7 +60,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     func handleOpenUrl(url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         fetchAccessToken(withPath:"oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential!) -> Void in
-            print(requestToken?.token!)
             self.currentAccount(success: { (user: User) in
                 User.currentUser = user
                 self.myLoginSuccess?()

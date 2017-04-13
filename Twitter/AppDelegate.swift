@@ -29,6 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = loginVc
         }
         
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.barTintColor = UIColor(red: 29/255, green: 161/255, blue: 243/255, alpha: 1)
+        navigationBarAppearance.tintColor = .white
+        navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         return true
     }
 

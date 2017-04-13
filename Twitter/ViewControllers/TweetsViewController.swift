@@ -55,4 +55,15 @@ extension TweetsViewController {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tweetDetailSegue" {
+            let vc = segue.destination as! DetailViewController
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                vc.tweet = self.tweets[indexPath.row]
+            }
+            
+        }
+    }
+    
 }

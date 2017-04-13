@@ -25,6 +25,9 @@ class TweetCell: UITableViewCell {
 
     var tweet: Tweet? {
         didSet {
+            userProfileImgView.layer.cornerRadius = 4
+            userProfileImgView.layer.masksToBounds = true
+            
 
             let userName = tweet?.user?["name"] as? String
             if let name = userName {
@@ -35,8 +38,7 @@ class TweetCell: UITableViewCell {
                 tweetTextLabel.text = text
             }
             
-            if let imgLink = tweet?.user?["profile_image_url"] as? String {
-//                print(imgLink)
+            if let imgLink = tweet?.user?["profile_image_url_https"] as? String {
                 userProfileImgView.setImageWith(URL(string:imgLink)!)
             }
             

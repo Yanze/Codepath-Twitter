@@ -199,6 +199,7 @@
                                             <outlet property="tweetTextLabel" destination="3yb-g7-pw5" id="Qmr-YF-3zX"/>
                                             <outlet property="userIdLabel" destination="ku7-nl-Wss" id="XKe-ug-meG"/>
                                             <outlet property="userProfileImgView" destination="Obv-1a-xAH" id="zTO-tr-QUF"/>
+                                            <segue destination="sfr-Sm-bTa" kind="show" id="y4t-Xw-5Xj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -231,6 +232,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMa-eD-7vk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1469.5999999999999" y="105.69715142428787"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="8Nk-cZ-NXE">
+            <objects>
+                <viewController id="sfr-Sm-bTa" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R2p-Nu-d4e"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vnf-x4-rkS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G4Z-hS-fzf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fUt-tE-BnR">
+                                <rect key="frame" x="22" y="83" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y2z-2F-6RG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2225" y="106"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tB9-hY-VYe">

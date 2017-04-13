@@ -23,6 +23,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
+            
         }, failure: { (error: NSError) in
             print(error.localizedDescription)
         })
@@ -52,6 +53,17 @@ extension TweetsViewController {
         cell.tweet = tweets[indexPath.row]
         return cell
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tweetDetailSegue" {
+            let vc = segue.destination as! DetailViewController
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                vc.tweet = self.tweets[indexPath.row]
+            }
+            
+        }
     }
     
 }

@@ -36,7 +36,8 @@ class TweetCell: UITableViewCell {
             }
             
             if let imgLink = tweet?.user?["profile_image_url"] as? String {
-                userProfileImgView.setImageWith(URL(string: imgLink)!)
+                print(imgLink)
+                userProfileImgView.setImageWith(URL(string:imgLink)!)
             }
             
             if let likes = tweet?.favoCount {

@@ -68,7 +68,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Marriage" translatesAutoresizingMaskIntoConstraints="NO" id="Obv-1a-xAH">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Obv-1a-xAH">
                                                     <rect key="frame" x="14" y="34" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="A6O-qS-gul"/>
@@ -252,7 +252,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Marriage" width="640" height="426"/>
         <image name="like" width="21" height="21"/>
         <image name="reply" width="24" height="24"/>
         <image name="retweet" width="27" height="27"/>

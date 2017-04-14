@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DGElasticPullToRefresh
 
 class ComposeViewController: UIViewController, UITextViewDelegate {
     

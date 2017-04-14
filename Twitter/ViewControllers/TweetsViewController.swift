@@ -26,17 +26,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         pullToRefresh()
 
     }
+
     
     func pullToRefresh() {
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.barTintColor = UIColor(red: 94/255, green: 186/255, blue: 243/255, alpha: 1)
+//        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
-        loadingView.tintColor = .white
+        loadingView.tintColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
         
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
@@ -51,12 +52,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self?.tableView.dg_stopLoading()
             })
             }, loadingView: loadingView)
-        tableView.dg_setPullToRefreshFillColor(UIColor(red: 94/255, green: 186/255, blue: 243/255, alpha: 1))
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 225/255, green: 232/255, blue: 237/255, alpha: 1))
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
     }
     
     deinit {
         tableView.dg_removePullToRefresh()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        SVProgressHUD.dismiss()
     }
     
     func getAllTweets() {

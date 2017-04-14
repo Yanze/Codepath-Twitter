@@ -8,6 +8,7 @@
 
 import UIKit
 import DGElasticPullToRefresh
+import SVProgressHUD
 
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -20,26 +21,54 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        getAllTweets()
+        pullToRefresh()
+
+    }
+    
+    func pullToRefresh() {
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 94/255, green: 186/255, blue: 243/255, alpha: 1)
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
-        loadingView.tintColor = UIColor(red: 29/255, green: 161/255, blue: 243/255, alpha: 1)
+        loadingView.tintColor = .white
         
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+//                TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+//                    self?.tweets = tweets
+//                    self?.tableView.reloadData()
+//                    
+//                }, failure: { (error: NSError) in
+//                    print(error.localizedDescription)
+//                })
+                
                 self?.tableView.dg_stopLoading()
             })
             }, loadingView: loadingView)
-        tableView.dg_setPullToRefreshFillColor(UIColor(red: 29/255, green: 161/255, blue: 243/255, alpha: 1))
+        tableView.dg_setPullToRefreshFillColor(UIColor(red: 94/255, green: 186/255, blue: 243/255, alpha: 1))
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
-        
-
+    }
+    
+    deinit {
+        tableView.dg_removePullToRefresh()
+    }
+    
+    func getAllTweets() {
+        SVProgressHUD.show()
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
+            SVProgressHUD.dismiss()
             
         }, failure: { (error: NSError) in
             print(error.localizedDescription)
         })
-       
     }
     
     @IBAction func logout(_ sender: UIButton) {

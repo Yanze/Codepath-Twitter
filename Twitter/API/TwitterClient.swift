@@ -28,24 +28,18 @@ class TwitterClient: BDBOAuth1SessionManager {
         } as? (URLSessionDataTask?, Error) -> Void)
     }
     
-//    func postTweetMessage() {
-//        var task: URLSessionDataTask!
-//        
-//        let request = self.requestSerializer.request(withMethod: "POST", urlString: "https://api.twitter.com/1.1/statuses/update.json", parameters: "status=Maybe%20Ok", error: nil)
-//        
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        
-//        task = self.dataTask(with: request as URLRequest, completionHandler: { (response, responseObject, error) in
-//            if let error = error {
-//                print(error)
-//            }
-//            else {
-//                print(responseObject as Any)
-//            }
-//        })
-//        task.resume()
-//    }
+    func postTweetMessage(_ tweetMessage: String!, completionHandler: @escaping ([String: Any]) -> Void) {
+        let parameters: [String: String] = ["status": tweetMessage]
+        
+        post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (operation, response) in
+            print(response as Any)
+            completionHandler(["isSuccessful": true, "responseObject": response as Any])
+        }) { (operation, error) in
+            print(error)
+            completionHandler(["error": error.localizedDescription])
+        }
+
+    }
     
     func currentAccount(success: @escaping (User) -> Void, failure: @escaping (NSError) -> Void) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in

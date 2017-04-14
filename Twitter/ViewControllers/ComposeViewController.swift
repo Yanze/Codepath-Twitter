@@ -88,10 +88,23 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
 
     @IBAction func tweetButtonPressed(_ sender: UIButton) {
         // post message
-//        TwitterClient.sharedInstance?.postTweetMessage()
+        TwitterClient.sharedInstance?.postTweetMessage(userInputTweetTextView.text!, completionHandler: { (response) in
+            if (response["isSuccessful"] != nil) {
+                self.navigationController?.popViewController(animated: true)
+            }
+            else{
+                self.showAlertBox()
+            }
+        })
     }
     
-    
+    func showAlertBox() {
+        let alertVC = UIAlertController(title: "Tweet not sent", message: "Whoops! You already said that.", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+        alertVC.addAction(okAction)
+        self.present(alertVC, animated: true, completion: nil)
+    }
 
 
 

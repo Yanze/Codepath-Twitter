@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DGElasticPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Twitter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,7 +27,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>37EBE0F3B507E288F4CF8396F97863E2</key>
+		<key>47D07B436D82BB983C8429FF84F919A3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C39DFFFAFF77164559F918461D78ACE7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

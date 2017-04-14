@@ -44,6 +44,9 @@ class DetailViewController: UIViewController {
         if let name = tweet.user?["name"] as? String {
             nameLabel.text = name
         }
+        if let username = tweet.user?["screen_name"] as? String {
+            usernameLabel.text = username
+        }
     }
     
     func setupTweetTime() {

@@ -27,10 +27,13 @@ class TweetCell: UITableViewCell {
         didSet {
             userProfileImgView.layer.cornerRadius = 4
             userProfileImgView.layer.masksToBounds = true
-            
 
-            let userName = tweet?.user?["name"] as? String
-            if let name = userName {
+            
+            if let screenName = tweet?.user?["screen_name"] as? String {
+                userIdLabel.text = "@\(screenName)"
+            }
+            
+            if let name = tweet?.user?["name"] as? String {
                 nameLabel.text = name
             }
             
@@ -53,7 +56,6 @@ class TweetCell: UITableViewCell {
             replyCountLabel.text = String(0)
             
             if let theDate = tweet?.createdAt {
-//                print("time: \(theDate), timeago: \(timeAgoSince(theDate))")
                 timeLabel.text = timeAgoSince(theDate)
             }
             

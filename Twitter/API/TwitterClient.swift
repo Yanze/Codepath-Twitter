@@ -23,7 +23,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
             
 //            for t in tweets {
-//                print(t.user)
+//                print(t.createdAt)
 //            }
             
             success(tweets)

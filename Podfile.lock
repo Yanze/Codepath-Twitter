@@ -16,15 +16,18 @@ PODS:
     - AFNetworking/NSURLSession
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
+  - DGElasticPullToRefresh (1.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - BDBOAuth1Manager
+  - DGElasticPullToRefresh
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
+  DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
 
-PODFILE CHECKSUM: 7b008b435d792a6679477d2af9cfae73e6339396
+PODFILE CHECKSUM: 3c7eb7a94cefb1df28e0f0e969e2db31bd3d53ba
 
 COCOAPODS: 1.2.0

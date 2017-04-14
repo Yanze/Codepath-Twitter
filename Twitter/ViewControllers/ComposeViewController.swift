@@ -12,6 +12,11 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     
 
     @IBOutlet weak var userInputTweetTextView: UITextView!
+    @IBOutlet weak var userProfileImgView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    
+    
     
     var charCounterLabel: UILabel!
 
@@ -19,7 +24,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         setupNavBar()
         setupUserInputTextView()
- 
+        setupCurrentUser()
         
     }
     
@@ -33,12 +38,28 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         removeCharCountLabel()
     }
     
+    func setupCurrentUser() {
+        if let name = User.currentUser?.name{
+            nameLabel.text = name
+        }
+        if let screenName = User.currentUser?.screenName {
+            screenNameLabel.text = "@\(screenName)"
+        }
+        
+        userProfileImgView.layer.cornerRadius = 4
+        userProfileImgView.layer.masksToBounds = true
+        if let imgLink = User.currentUser?.profileUrl {
+            userProfileImgView.setImageWith(imgLink)
+        }
+        
+    }
+    
     func setupCharCounterLabelInNavBar() {
         if let navigationBar = self.navigationController?.navigationBar {
             
             charCounterLabel = UILabel(frame: CGRect(x: navigationBar.frame.width-120, y: (navigationBar.frame.height - 20)/2, width: 40, height: 20))
             charCounterLabel.text = "140"
-            charCounterLabel.textColor = .gray
+            charCounterLabel.textColor = UIColor(red: 242/255, green: 239/255, blue: 239/255, alpha: 1)
             charCounterLabel.font = UIFont(name: charCounterLabel.font.fontName, size: 14)
             navigationBar.addSubview(charCounterLabel)
             
@@ -60,7 +81,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
 
     func setupUserInputTextView() {
         userInputTweetTextView.delegate = self
-        userInputTweetTextView.text = "What's hapenning?"
+        userInputTweetTextView.text = "What's happening?"
+        userInputTweetTextView.font = UIFont(name: (userInputTweetTextView.font?.fontName)!, size: 18)
         userInputTweetTextView.textColor = .lightGray
     }
 
@@ -108,3 +130,6 @@ extension ComposeViewController {
     }
     
 }
+
+
+

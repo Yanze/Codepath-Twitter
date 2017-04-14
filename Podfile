@@ -6,6 +6,7 @@ target 'Twitter' do
   use_frameworks!
   pod 'AFNetworking', '~> 3.0'
   pod 'BDBOAuth1Manager'
+  pod 'DGElasticPullToRefresh'
   # Pods for Twitter
 
 end

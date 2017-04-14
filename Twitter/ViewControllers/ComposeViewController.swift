@@ -88,7 +88,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
 
     @IBAction func tweetButtonPressed(_ sender: UIButton) {
         // post message
-        
+//        TwitterClient.sharedInstance?.postTweetMessage()
     }
     
     

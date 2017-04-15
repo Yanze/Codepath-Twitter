@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DGElasticPullToRefresh
 
 protocol InsertTweetDelegate: class {
     func InsertTweet(tweet: Tweet)

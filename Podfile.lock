@@ -17,17 +17,20 @@ PODS:
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
   - DGElasticPullToRefresh (1.1)
+  - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - BDBOAuth1Manager
   - DGElasticPullToRefresh
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
   DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: 3c7eb7a94cefb1df28e0f0e969e2db31bd3d53ba
+PODFILE CHECKSUM: 04540aaa9edd0cda1b47962ecd382147b86cc156
 
 COCOAPODS: 1.2.0

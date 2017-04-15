@@ -13,13 +13,15 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, CellDelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
 
 
     var tweets: [Tweet]!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -32,9 +34,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 
     func pullToRefresh() {
-//        navigationController?.navigationBar.isTranslucent = false
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
@@ -79,6 +78,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print(error.localizedDescription)
         })
     }
+    
 
     @IBAction func logout(_ sender: UIButton) {
         TwitterClient.sharedInstance?.logout()
@@ -88,6 +88,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tweets.insert(tweet, at: 0)
         tableView.reloadData()
     }
+    
+    
 
 }
 
@@ -102,8 +104,13 @@ extension TweetsViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
+        cell.delegate = self
         return cell
 
+    }
+    
+    func cellRetweetButtonPressed(tweet: Tweet) {
+        print(tweet.text as Any)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

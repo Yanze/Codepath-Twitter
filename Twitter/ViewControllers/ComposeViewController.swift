@@ -9,7 +9,7 @@
 import UIKit
 import DGElasticPullToRefresh
 
-protocol InsertTweetDelegate: class {
+protocol InsertTweetDelegate {
     func InsertTweet(tweet: Tweet)
 }
 
@@ -25,7 +25,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     
     
     var charCounterLabel: UILabel!
-    weak var delegate: InsertTweetDelegate?
+    var delegate: InsertTweetDelegate?
     
     
     override func viewDidLoad() {

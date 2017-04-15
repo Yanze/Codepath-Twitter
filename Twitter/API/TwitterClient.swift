@@ -40,6 +40,15 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     }
     
+    func reteetMessage(_ id: String){
+        post("1.1/statuses/retweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) in
+            print("after retweeted: \(String(describing: response))")
+        }) { (operation, error) in
+            print(error)
+        }
+        
+    }
+    
     func currentAccount(success: @escaping (User) -> Void, failure: @escaping (NSError) -> Void) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
             

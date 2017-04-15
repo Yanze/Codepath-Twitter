@@ -9,10 +9,15 @@
 import UIKit
 import AFNetworking
 
+protocol CellDelegate {
+    func cellRetweetButtonPressed(tweet: Tweet)
+}
+
 
 class TweetCell: UITableViewCell {
     
-    @IBOutlet weak var retweetedByLabel: UILabel!
+    var delegate: CellDelegate?
+    
     @IBOutlet weak var userProfileImgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
@@ -21,6 +26,11 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var likeCountLabel: UILabel!
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var replyCountLabel: UILabel!
+    
+    @IBAction func retweetMessage(_ sender: UIButton) {
+        self.delegate?.cellRetweetButtonPressed(tweet: tweet!)
+    }
+    
     
 
     var tweet: Tweet? {

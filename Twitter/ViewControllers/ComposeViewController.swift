@@ -90,6 +90,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         // post message
         TwitterClient.sharedInstance?.postTweetMessage(userInputTweetTextView.text!, completionHandler: { (response) in
             if (response["isSuccessful"] != nil) {
+                let newTweet = self.insertNewTweetIntoTableview()
+                print(newTweet)
                 self.navigationController?.popViewController(animated: true)
             }
             else{
@@ -104,6 +106,17 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
         alertVC.addAction(okAction)
         self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func insertNewTweetIntoTableview() -> Dictionary<String, Any> {
+        var newTweet = Dictionary<String, Any>()
+        let user = User.currentUser!
+        newTweet["text"] = userInputTweetTextView.text!
+        newTweet["createdAt"] = Date()
+        newTweet["retweetCount"] = 0
+        newTweet["favoCount"] = 0
+        newTweet["user"] = user
+        return newTweet
     }
 
 

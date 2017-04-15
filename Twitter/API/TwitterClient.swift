@@ -32,7 +32,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         let parameters: [String: String] = ["status": tweetMessage]
         
         post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (operation, response) in
-            print(response as Any)
             completionHandler(["isSuccessful": true, "responseObject": response as Any])
         }) { (operation, error) in
             print(error)

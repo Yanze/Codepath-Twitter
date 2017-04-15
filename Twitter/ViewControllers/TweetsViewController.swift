@@ -44,13 +44,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-//                TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-//                    self?.tweets = tweets
-//                    self?.tableView.reloadData()
-//
-//                }, failure: { (error: NSError) in
-//                    print(error.localizedDescription)
-//                })
+                TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+                    self?.tweets = tweets
+                    self?.tableView.reloadData()
+
+                }, failure: { (error: NSError) in
+                    print(error.localizedDescription)
+                })
 
                 self?.tableView.dg_stopLoading()
             })

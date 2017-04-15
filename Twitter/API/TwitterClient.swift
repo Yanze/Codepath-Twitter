@@ -19,7 +19,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (NSError) -> Void) {
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-            
             let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
 
             success(tweets)
@@ -40,13 +39,22 @@ class TwitterClient: BDBOAuth1SessionManager {
 
     }
     
-    func reteetMessage(_ id: String){
+    func retweetMessage(_ id: Int){
         post("1.1/statuses/retweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) in
             print("after retweeted: \(String(describing: response))")
         }) { (operation, error) in
-            print(error)
+            print(error.localizedDescription)
         }
         
+    }
+    
+    func favoriteTweet(_ id: Int) {
+        let parameters = ["id": id]
+        post("1.1/favorites/create.json", parameters: parameters, progress: nil, success: { (operation, response) in
+            print(response as Any)
+        }) { (operation, error) in
+            print(error.localizedDescription)
+        }
     }
     
     func currentAccount(success: @escaping (User) -> Void, failure: @escaping (NSError) -> Void) {

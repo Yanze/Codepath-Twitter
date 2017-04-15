@@ -13,7 +13,7 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, CellDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
@@ -104,13 +104,31 @@ extension TweetsViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
-        cell.delegate = self
+        cell.retweetDelegate = self
+        cell.favoTweetDelegate = self
         return cell
 
     }
     
     func cellRetweetButtonPressed(tweet: Tweet) {
-        print(tweet.text as Any)
+        showActionSheet(tweet: tweet)
+    }
+    
+    func favoriteTweet(tweet: Tweet) {
+        TwitterClient.sharedInstance?.favoriteTweet(tweet.id!)
+    }
+    
+    func showActionSheet(tweet: Tweet) {
+        let actionSheet = UIAlertController()
+        let retweet = UIAlertAction(title: "Retweet", style: UIAlertActionStyle.default) {(ACTION) in
+            // retweet
+            TwitterClient.sharedInstance?.retweetMessage(tweet.id!)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {(ACTION) in}
+        
+        actionSheet.addAction(retweet)
+        actionSheet.addAction(cancel)
+        self.present(actionSheet, animated: true, completion: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

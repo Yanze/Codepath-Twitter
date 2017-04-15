@@ -20,6 +20,7 @@
 		E0C42FE21E9D5BEB00C3C8F1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FE01E9D5BEB00C3C8F1 /* LoginViewController.swift */; };
 		E0C42FEB1E9D5C3C00C3C8F1 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FE91E9D5C3C00C3C8F1 /* Tweet.swift */; };
 		E0C42FEC1E9D5C3C00C3C8F1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C42FEA1E9D5C3C00C3C8F1 /* User.swift */; };
+		E0F4D0E71EA27EB800C53E9B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F4D0E61EA27EB800C53E9B /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		E0C42FE01E9D5BEB00C3C8F1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E0C42FE91E9D5C3C00C3C8F1 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		E0C42FEA1E9D5C3C00C3C8F1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E0F4D0E61EA27EB800C53E9B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				E06CCC731E9D3F0F00E8A055 /* LaunchScreen.storyboard */,
 				E06CCC761E9D3F0F00E8A055 /* Info.plist */,
 				E089DA571E9EC64100D5F475 /* TweetCell.swift */,
+				E0F4D0E61EA27EB800C53E9B /* Helpers.swift */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				E0375DDE1EA007B700B60F76 /* ComposeViewController.swift in Sources */,
 				E0C42FE21E9D5BEB00C3C8F1 /* LoginViewController.swift in Sources */,
 				E089DA581E9EC64100D5F475 /* TweetCell.swift in Sources */,
+				E0F4D0E71EA27EB800C53E9B /* Helpers.swift in Sources */,
 				E06CCC6B1E9D3F0F00E8A055 /* AppDelegate.swift in Sources */,
 				E0C42FEC1E9D5C3C00C3C8F1 /* User.swift in Sources */,
 				E05F10CA1E9EA469007EA933 /* TweetsViewController.swift in Sources */,

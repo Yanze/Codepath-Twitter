@@ -9,6 +9,7 @@
 import Foundation
 
 class Tweet: NSObject {
+    var id: Int?
     var text: String?
     var createdAt: Date?
     var retweetCount: Int = 0
@@ -17,6 +18,7 @@ class Tweet: NSObject {
 
     
     init(dictionary: Dictionary<String, Any>) {
+        id = dictionary["id"] as? Int
         text = dictionary["text"] as? String
 //        dump(dictionary)
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0

@@ -133,6 +133,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asr-F2-5AL">
                                                     <rect key="frame" x="212" y="62" width="21" height="22"/>
                                                     <state key="normal" image="like"/>
+                                                    <connections>
+                                                        <action selector="favoriteTweet:" destination="B19-PH-qjG" eventType="touchUpInside" id="Hog-Im-TbO"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWk-qp-3La">
                                                     <rect key="frame" x="238" y="67" width="26.5" height="12"/>

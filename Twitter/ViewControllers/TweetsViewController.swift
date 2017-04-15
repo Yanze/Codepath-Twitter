@@ -156,6 +156,7 @@ extension TweetsViewController {
                 vc.tweet = self.tweets[indexPath.row]
                 let cell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
                 vc.detailviewRetweetDelegate = cell as? DetailViewRetweetDelegate
+                vc.detailviewLikesDelegate = cell as? DetailViewLikesDelegate
             }
 
         }

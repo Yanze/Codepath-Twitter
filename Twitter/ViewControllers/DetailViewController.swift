@@ -13,6 +13,10 @@ protocol DetailViewRetweetDelegate {
     func updateCellRetweetIconState(tweet: Tweet)
 }
 
+protocol DetailViewLikesDelegate {
+    func updateCellLikeIconState(tweet: Tweet)
+}
+
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var userProfileImgView: UIImageView!
@@ -26,6 +30,7 @@ class DetailViewController: UIViewController {
     
     var tweet: Tweet!
     var detailviewRetweetDelegate: DetailViewRetweetDelegate?
+    var detailviewLikesDelegate: DetailViewLikesDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +53,18 @@ class DetailViewController: UIViewController {
             print(error)
         })
     }
+    
+    @IBAction func likeButtonPressed(_ sender: UIButton) {
+        TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in
+            DispatchQueue.main.async {
+                self.favoCountLabel.text =  String(tweet.favoCount)
+                self.detailviewLikesDelegate?.updateCellLikeIconState(tweet: tweet)
+            }
+        }, failure: { (error) in
+            print(error)
+        })
+    }
+    
     
     func setupUserProfileImg() {
         userProfileImgView.layer.cornerRadius = 4

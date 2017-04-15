@@ -18,7 +18,7 @@ protocol FavoriteDelegate {
 }
 
 
-class TweetCell: UITableViewCell, DetailViewRetweetDelegate {
+class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDelegate {
     
     var retweetDelegate: RetweetDelegate?
     var favoTweetDelegate: FavoriteDelegate?
@@ -58,6 +58,9 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate {
         retweet(retweetCount: tweet.retweetCount)
     }
     
+    func updateCellLikeIconState(tweet: Tweet) {
+        updateFavoCountAndImageColor(favoCount: tweet.favoCount)
+    }
 
     var tweet: Tweet? {
         didSet {

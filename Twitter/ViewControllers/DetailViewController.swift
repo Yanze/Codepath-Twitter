@@ -29,8 +29,18 @@ class DetailViewController: UIViewController {
         setupTweetTime()
         setuptext()
         setupRetweetsandFavoCount()
-
+        
     }
+    
+    
+    @IBAction func retweetButtonPressed(_ sender: UIButton) {
+        TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
+            self.retweetsCountLabel.text =  String(tweet.retweetCount)
+        }, failure: { (error) in
+            print(error)
+        })
+    }
+    
 
     func setupUserProfileImg() {
         userProfileImgView.layer.cornerRadius = 4

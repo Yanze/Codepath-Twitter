@@ -337,6 +337,9 @@
                                     <constraint firstAttribute="height" constant="20" id="FzG-mL-pOZ"/>
                                 </constraints>
                                 <state key="normal" image="retweet"/>
+                                <connections>
+                                    <action selector="retweetButtonPressed:" destination="sfr-Sm-bTa" eventType="touchUpInside" id="dWJ-eE-vve"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5y-x4-vqi">
                                 <rect key="frame" x="165" y="298" width="20" height="20"/>

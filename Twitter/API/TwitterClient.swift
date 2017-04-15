@@ -47,7 +47,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("error when retweet: \(error.localizedDescription)")
             failure(error as NSError)
         }
-        
     }
     
     func favoriteTweet(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {

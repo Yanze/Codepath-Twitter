@@ -26,6 +26,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var favoCountLabel: UILabel!
     @IBOutlet weak var retweetsCountLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
     
     
     var tweet: Tweet!
@@ -41,7 +43,6 @@ class DetailViewController: UIViewController {
         setupRetweetsandFavoCount()
         
     }
-    
     
     @IBAction func retweetButtonPressed(_ sender: UIButton) {
         TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in

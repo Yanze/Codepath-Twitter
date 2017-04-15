@@ -412,7 +412,9 @@
                     <connections>
                         <outlet property="createdAtLabel" destination="02R-DA-9sR" id="R3y-wC-3d1"/>
                         <outlet property="favoCountLabel" destination="wRv-R7-Ogw" id="u1j-hA-Z40"/>
+                        <outlet property="likeButton" destination="A5y-x4-vqi" id="sOc-eG-fOq"/>
                         <outlet property="nameLabel" destination="QRj-w8-kLg" id="nJJ-sG-fX1"/>
+                        <outlet property="retweetButton" destination="IXi-7v-8nX" id="TbT-Bk-vIF"/>
                         <outlet property="retweetsCountLabel" destination="cZw-zw-xVu" id="cDh-D3-HGL"/>
                         <outlet property="tweetTextLabel" destination="r3K-BD-oLQ" id="LNP-Iy-URi"/>
                         <outlet property="userProfileImgView" destination="fUt-tE-BnR" id="Qb3-w7-jwk"/>

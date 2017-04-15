@@ -127,7 +127,7 @@ extension TweetsViewController {
     
     func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in
-            cell.updateFavoCountAndImageColor(favoCount: tweet.favoCount)
+            cell.updateFavoCountAndImageColor()
         }, failure: { (error) in
             print(error)
         })
@@ -143,7 +143,7 @@ extension TweetsViewController {
         let retweet = UIAlertAction(title: "Retweet", style: UIAlertActionStyle.default) {(ACTION) in
             // retweet
             TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
-                cell.retweet(retweetCount: tweet.retweetCount)
+                cell.increaseRetweetCount()
             }, failure: { (error) in
                 print(error)
             })

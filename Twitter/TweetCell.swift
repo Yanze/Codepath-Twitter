@@ -14,7 +14,7 @@ protocol RetweetDelegate {
 }
 
 protocol FavoriteDelegate {
-    func favoriteTweet(tweet: Tweet)
+    func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell)
 }
 
 
@@ -33,6 +33,7 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate {
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var replyCountLabel: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
     
     
     @IBAction func retweetMessage(_ sender: UIButton) {
@@ -40,12 +41,17 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate {
     }
     
     @IBAction func favoriteTweet(_ sender: UIButton) {
-        self.favoTweetDelegate?.favoriteTweet(tweet: tweet!)
+        self.favoTweetDelegate?.favoriteTweetButtonPressed(tweet: tweet!, cell: self)
     }
     
     func retweet(retweetCount: Int) {
         retweetCountLabel.text = String(retweetCount)
         retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
+    }
+    
+    func updateFavoCountAndImageColor(favoCount: Int) {
+        likeCountLabel.text = String(favoCount)
+        likeButton.setImage(UIImage(named: "like-red"), for: .normal)
     }
     
     func updateCellRetweetIconState(tweet: Tweet) {

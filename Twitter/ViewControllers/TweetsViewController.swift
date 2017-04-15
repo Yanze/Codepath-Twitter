@@ -124,8 +124,12 @@ extension TweetsViewController {
         showActionSheet(tweet: tweet, cell: cell)
     }
     
-    func favoriteTweet(tweet: Tweet) {
-        TwitterClient.sharedInstance?.favoriteTweet(tweet.id!)
+    func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
+        TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in
+            cell.updateFavoCountAndImageColor(favoCount: tweet.favoCount)
+        }, failure: { (error) in
+            print(error)
+        })
     }
     
     func showActionSheet(tweet: Tweet, cell: TweetCell) {

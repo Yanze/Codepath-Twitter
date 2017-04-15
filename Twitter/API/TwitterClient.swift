@@ -50,12 +50,14 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
-    func favoriteTweet(_ id: Int) {
+    func favoriteTweet(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
         let parameters = ["id": id]
         post("1.1/favorites/create.json", parameters: parameters, progress: nil, success: { (operation, response) in
-            print(response as Any)
+            let tweet = Tweet(dictionary: response as! Dictionary)
+            success(tweet)
         }) { (operation, error) in
             print("error when favorite a tweet: \(error.localizedDescription)")
+            failure(error as NSError)
         }
     }
     

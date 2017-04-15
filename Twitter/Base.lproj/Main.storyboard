@@ -129,6 +129,9 @@
                                                         <constraint firstAttribute="width" constant="20" id="ghQ-TM-P8G"/>
                                                     </constraints>
                                                     <state key="normal" image="reply"/>
+                                                    <connections>
+                                                        <action selector="replyButtonPressed:" destination="B19-PH-qjG" eventType="touchUpInside" id="PDg-jw-80W"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asr-F2-5AL">
                                                     <rect key="frame" x="212" y="74" width="21" height="22"/>
@@ -222,6 +225,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="chS-Sg-OVF" id="H99-7M-8qc"/>
+                        <segue destination="sfr-Sm-bTa" kind="show" identifier="replySegue" id="MyI-oH-zUA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMa-eD-7vk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -527,4 +531,7 @@
         <image name="reply" width="24" height="24"/>
         <image name="retweet" width="27" height="27"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="MyI-oH-zUA"/>
+    </inferredMetricsTieBreakers>
 </document>

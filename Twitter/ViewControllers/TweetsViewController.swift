@@ -13,14 +13,14 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
 
 
     var tweets: [Tweet]!
-    
+    var tweetfromReply: Tweet?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +116,7 @@ extension TweetsViewController {
         cell.tweet = tweets[indexPath.row]
         cell.retweetDelegate = self
         cell.favoTweetDelegate = self
+        cell.replyTweetDelegate = self
         return cell
 
     }
@@ -130,6 +131,11 @@ extension TweetsViewController {
         }, failure: { (error) in
             print(error)
         })
+    }
+    
+    func replyButtonPressed(tweet: Tweet, cell: TweetCell) {
+        tweetfromReply = tweet
+        performSegue(withIdentifier: "replySegue", sender: nil)
     }
     
     func showActionSheet(tweet: Tweet, cell: TweetCell) {
@@ -157,13 +163,18 @@ extension TweetsViewController {
                 let cell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
                 vc.detailviewRetweetDelegate = cell as? DetailViewRetweetDelegate
                 vc.detailviewLikesDelegate = cell as? DetailViewLikesDelegate
-            }
 
+            }
         }
         else if segue.identifier == "composeSegue" {
             let composeVc = segue.destination as! ComposeViewController
             composeVc.delegate = self
         }
+        else if segue.identifier == "replySegue" {
+            let vc = segue.destination as! DetailViewController
+            vc.tweet = tweetfromReply
+        }
+        
     }
 
 }

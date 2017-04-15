@@ -17,12 +17,16 @@ protocol FavoriteDelegate {
     func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell)
 }
 
+protocol ReplyDelegate {
+    func replyButtonPressed(tweet: Tweet, cell: TweetCell)
+}
+
 
 class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDelegate {
     
     var retweetDelegate: RetweetDelegate?
     var favoTweetDelegate: FavoriteDelegate?
-
+    var replyTweetDelegate: ReplyDelegate?
     
     @IBOutlet weak var userProfileImgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -43,6 +47,11 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
     @IBAction func favoriteTweet(_ sender: UIButton) {
         self.favoTweetDelegate?.favoriteTweetButtonPressed(tweet: tweet!, cell: self)
     }
+    
+    @IBAction func replyButtonPressed(_ sender: UIButton) {
+        self.replyTweetDelegate?.replyButtonPressed(tweet: tweet!, cell: self)
+    }
+    
     
     func retweet(retweetCount: Int) {
         retweetCountLabel.text = String(retweetCount)

@@ -18,10 +18,11 @@ protocol FavoriteDelegate {
 }
 
 
-class TweetCell: UITableViewCell {
+class TweetCell: UITableViewCell, DetailViewRetweetDelegate {
     
     var retweetDelegate: RetweetDelegate?
     var favoTweetDelegate: FavoriteDelegate?
+
     
     @IBOutlet weak var userProfileImgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -47,9 +48,14 @@ class TweetCell: UITableViewCell {
         retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
     }
     
+    func updateCellRetweetIconState(tweet: Tweet) {
+        retweet(retweetCount: tweet.retweetCount)
+    }
+    
 
     var tweet: Tweet? {
         didSet {
+            
             userProfileImgView.layer.cornerRadius = 4
             userProfileImgView.layer.masksToBounds = true
 

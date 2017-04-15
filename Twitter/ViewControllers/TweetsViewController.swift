@@ -31,6 +31,16 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         pullToRefresh()
 
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+//            self.tweets = tweets
+//            self.tableView.reloadData()
+//        }, failure: { (error: NSError) in
+//            print(error.localizedDescription)
+//        })
+//    }
 
 
     func pullToRefresh() {
@@ -123,7 +133,6 @@ extension TweetsViewController {
         let retweet = UIAlertAction(title: "Retweet", style: UIAlertActionStyle.default) {(ACTION) in
             // retweet
             TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
-                print(tweet)
                 cell.retweet(retweetCount: tweet.retweetCount)
             }, failure: { (error) in
                 print(error)
@@ -139,9 +148,10 @@ extension TweetsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tweetDetailSegue" {
             let vc = segue.destination as! DetailViewController
-
             if let indexPath = tableView.indexPathForSelectedRow {
                 vc.tweet = self.tweets[indexPath.row]
+                let cell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
+                vc.detailviewRetweetDelegate = cell as? DetailViewRetweetDelegate
             }
 
         }

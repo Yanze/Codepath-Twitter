@@ -9,6 +9,10 @@
 import UIKit
 import AFNetworking
 
+protocol DetailViewRetweetDelegate {
+    func updateCellRetweetIconState(tweet: Tweet)
+}
+
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var userProfileImgView: UIImageView!
@@ -21,6 +25,7 @@ class DetailViewController: UIViewController {
     
     
     var tweet: Tweet!
+    var detailviewRetweetDelegate: DetailViewRetweetDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,13 +40,15 @@ class DetailViewController: UIViewController {
     
     @IBAction func retweetButtonPressed(_ sender: UIButton) {
         TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
-            self.retweetsCountLabel.text =  String(tweet.retweetCount)
+            DispatchQueue.main.async {
+                self.retweetsCountLabel.text =  String(tweet.retweetCount)
+                self.detailviewRetweetDelegate?.updateCellRetweetIconState(tweet: tweet)
+            }
         }, failure: { (error) in
             print(error)
         })
     }
     
-
     func setupUserProfileImg() {
         userProfileImgView.layer.cornerRadius = 4
         userProfileImgView.layer.masksToBounds = true
@@ -84,3 +91,7 @@ class DetailViewController: UIViewController {
     
 
 }
+
+
+    
+    

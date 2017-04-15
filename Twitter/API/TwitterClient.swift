@@ -21,7 +21,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
             
             let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
-            
+
             success(tweets)
         }, failure: { (task: URLSessionDataTask, error: NSError) in
             failure(error)

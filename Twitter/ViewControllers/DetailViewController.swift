@@ -35,16 +35,16 @@ class DetailViewController: UIViewController {
     func setupUserProfileImg() {
         userProfileImgView.layer.cornerRadius = 4
         userProfileImgView.layer.masksToBounds = true
-        if let imgLink = tweet.user?["profile_image_url_https"] as? String {
-            userProfileImgView.setImageWith(URL(string: imgLink)!)
+        if let imgLink = tweet.user?.profileUrl {
+            userProfileImgView.setImageWith(imgLink)
         }
     }
     
     func setupNameLabel() {
-        if let name = tweet.user?["name"] as? String {
+        if let name = tweet.user?.name {
             nameLabel.text = name
         }
-        if let username = tweet.user?["screen_name"] as? String {
+        if let username = tweet.user?.screenName {
             usernameLabel.text = username
         }
     }

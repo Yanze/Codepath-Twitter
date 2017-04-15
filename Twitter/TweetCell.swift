@@ -29,11 +29,11 @@ class TweetCell: UITableViewCell {
             userProfileImgView.layer.masksToBounds = true
 
             
-            if let screenName = tweet?.user?["screen_name"] as? String {
+            if let screenName = tweet?.user?.screenName {
                 userIdLabel.text = "@\(screenName)"
             }
             
-            if let name = tweet?.user?["name"] as? String {
+            if let name = tweet?.user?.name{
                 nameLabel.text = name
             }
             
@@ -41,8 +41,8 @@ class TweetCell: UITableViewCell {
                 tweetTextLabel.text = text
             }
             
-            if let imgLink = tweet?.user?["profile_image_url_https"] as? String {
-                userProfileImgView.setImageWith(URL(string:imgLink)!)
+            if let imgLink = tweet?.user?.profileUrl {
+                userProfileImgView.setImageWith(imgLink)
             }
             
             if let likes = tweet?.favoCount {

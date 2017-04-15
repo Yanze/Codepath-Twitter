@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol InsertTweetDelegate: class {
+    func InsertTweet(tweet: Tweet)
+}
+
+
 class ComposeViewController: UIViewController, UITextViewDelegate {
     
 
@@ -19,7 +24,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     
     
     var charCounterLabel: UILabel!
-
+    weak var delegate: InsertTweetDelegate?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
@@ -91,7 +98,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         TwitterClient.sharedInstance?.postTweetMessage(userInputTweetTextView.text!, completionHandler: { (response) in
             if (response["isSuccessful"] != nil) {
                 let newTweet = self.insertNewTweetIntoTableview()
-                print(newTweet)
+                self.delegate?.InsertTweet(tweet: newTweet)
                 self.navigationController?.popViewController(animated: true)
             }
             else{
@@ -108,14 +115,10 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         self.present(alertVC, animated: true, completion: nil)
     }
     
-    func insertNewTweetIntoTableview() -> Dictionary<String, Any> {
-        var newTweet = Dictionary<String, Any>()
-        let user = User.currentUser!
-        newTweet["text"] = userInputTweetTextView.text!
-        newTweet["createdAt"] = Date()
-        newTweet["retweetCount"] = 0
-        newTweet["favoCount"] = 0
-        newTweet["user"] = user
+    func insertNewTweetIntoTableview() -> Tweet {
+        let currentUser = User.currentUser
+        let user = User(name: currentUser?.name, screenName: currentUser?.screenName, profileUrl: currentUser?.profileUrl, descrip: currentUser?.descrip)
+        let newTweet = Tweet(text: userInputTweetTextView.text!, createdAt: Date(), retweetCount: 0, favoCount: 0, user: user)
         return newTweet
     }
 

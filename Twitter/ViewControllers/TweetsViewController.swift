@@ -9,7 +9,10 @@
 import UIKit
 import DGElasticPullToRefresh
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+
+
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,6 +23,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
         let loadingView = DGElasticPullToRefreshLoadingViewCircle()
         loadingView.tintColor = UIColor(red: 29/255, green: 161/255, blue: 243/255, alpha: 1)
         
@@ -46,10 +51,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance?.logout()
     }
     
-
-
-
-
+    func InsertTweet(tweet: Tweet) {
+        tweets.insert(tweet, at: 0)
+        tableView.reloadData()
+    }
+    
 }
 
 extension TweetsViewController {
@@ -75,6 +81,10 @@ extension TweetsViewController {
                 vc.tweet = self.tweets[indexPath.row]
             }
             
+        }
+        else if segue.identifier == "composeSegue" {
+            let composeVc = segue.destination as! ComposeViewController
+            composeVc.delegate = self
         }
     }
     

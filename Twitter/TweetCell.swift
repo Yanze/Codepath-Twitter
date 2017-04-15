@@ -10,7 +10,7 @@ import UIKit
 import AFNetworking
 
 protocol RetweetDelegate {
-    func cellRetweetButtonPressed(tweet: Tweet)
+    func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell)
 }
 
 protocol FavoriteDelegate {
@@ -31,13 +31,20 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var likeCountLabel: UILabel!
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var replyCountLabel: UILabel!
+    @IBOutlet weak var retweetButton: UIButton!
+    
     
     @IBAction func retweetMessage(_ sender: UIButton) {
-        self.retweetDelegate?.cellRetweetButtonPressed(tweet: tweet!)
+        self.retweetDelegate?.cellRetweetButtonPressed(tweet: tweet!, cell: self)
     }
     
     @IBAction func favoriteTweet(_ sender: UIButton) {
         self.favoTweetDelegate?.favoriteTweet(tweet: tweet!)
+    }
+    
+    func retweet(retweetCount: Int) {
+        retweetCountLabel.text = String(retweetCount)
+        retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
     }
     
 

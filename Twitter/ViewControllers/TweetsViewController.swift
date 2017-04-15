@@ -110,19 +110,24 @@ extension TweetsViewController {
 
     }
     
-    func cellRetweetButtonPressed(tweet: Tweet) {
-        showActionSheet(tweet: tweet)
+    func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell) {
+        showActionSheet(tweet: tweet, cell: cell)
     }
     
     func favoriteTweet(tweet: Tweet) {
         TwitterClient.sharedInstance?.favoriteTweet(tweet.id!)
     }
     
-    func showActionSheet(tweet: Tweet) {
+    func showActionSheet(tweet: Tweet, cell: TweetCell) {
         let actionSheet = UIAlertController()
         let retweet = UIAlertAction(title: "Retweet", style: UIAlertActionStyle.default) {(ACTION) in
             // retweet
-            TwitterClient.sharedInstance?.retweetMessage(tweet.id!)
+            TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
+                print(tweet)
+                cell.retweet(retweetCount: tweet.retweetCount)
+            }, failure: { (error) in
+                print(error)
+            })
         }
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {(ACTION) in}
         

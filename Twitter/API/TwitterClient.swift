@@ -33,17 +33,19 @@ class TwitterClient: BDBOAuth1SessionManager {
         post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (operation, response) in
             completionHandler(["isSuccessful": true, "responseObject": response as Any])
         }) { (operation, error) in
-            print(error)
+            print("error when post a new tweet: \(error.localizedDescription)")
             completionHandler(["error": error.localizedDescription])
         }
 
     }
     
-    func retweetMessage(_ id: Int){
+    func retweetMessage(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void){
         post("1.1/statuses/retweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) in
-            print("after retweeted: \(String(describing: response))")
+            let tweet = Tweet(dictionary: response as! Dictionary)
+            success(tweet)
         }) { (operation, error) in
-            print(error.localizedDescription)
+            print("error when retweet: \(error.localizedDescription)")
+            failure(error as NSError)
         }
         
     }
@@ -53,7 +55,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         post("1.1/favorites/create.json", parameters: parameters, progress: nil, success: { (operation, response) in
             print(response as Any)
         }) { (operation, error) in
-            print(error.localizedDescription)
+            print("error when favorite a tweet: \(error.localizedDescription)")
         }
     }
     

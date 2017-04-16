@@ -97,7 +97,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBAction func tweetButtonPressed(_ sender: UIButton) {
         // post message
         if userInputTweetTextView.text == "What's happening?" || userInputTweetTextView.text.isEmpty  {
-            showAlertBox(title: "Enter some text", message: "Cannot tweet an empty message.")
+            showAlertBox(title: "Enter some text", message: "You have to write something.")
         }
         
         TwitterClient.sharedInstance?.postTweetMessage(userInputTweetTextView.text!, in_reply_to_status_id: nil, completionHandler: { (response) in

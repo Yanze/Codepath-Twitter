@@ -44,6 +44,15 @@ class EnterReplyMessageViewController: UIViewController, UITextViewDelegate {
         removeCharCountLabel()
     }
     
+    @IBAction func replyTweetPressend(_ sender: UIButton) {
+        if let user = tweet.user?.screenName {
+            let message = "@\(user) \(userInputTextView.text!)"
+            TwitterClient.sharedInstance?.postTweetMessage(message, in_reply_to_status_id: tweet.id!, completionHandler: { (response) in
+            })
+        }
+    }
+    
+    
     func setupUserInputTextView() {
         userInputTextView.delegate = self
         userInputTextView.text = "Tweet your reply..."

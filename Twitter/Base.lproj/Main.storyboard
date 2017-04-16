@@ -505,6 +505,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="replyTweetPressend:" destination="IH1-5H-eZl" eventType="touchUpInside" id="ief-6g-IRS"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>

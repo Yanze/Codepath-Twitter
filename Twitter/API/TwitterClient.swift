@@ -56,17 +56,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func favoriteTweet(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
-        let parameters = ["id": id]
-        post("1.1/favorites/create.json", parameters: parameters, progress: nil, success: { (operation, response) in
-            let tweet = Tweet(dictionary: response as! Dictionary)
-            success(tweet)
-        }) { (operation, error) in
-            print("error when favorite a tweet: \(error.localizedDescription)")
-            failure(error as NSError)
-        }
-    }
-    
     func untweetMessage(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
         post("1.1/statuses/unretweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) in
             print("untweet ::::: \(response as Any)")
@@ -78,6 +67,27 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    func favoriteTweet(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
+        let parameters = ["id": id]
+        post("1.1/favorites/create.json", parameters: parameters, progress: nil, success: { (operation, response) in
+            let tweet = Tweet(dictionary: response as! Dictionary)
+            success(tweet)
+        }) { (operation, error) in
+            print("error when favorite a tweet: \(error.localizedDescription)")
+            failure(error as NSError)
+        }
+    }
+    
+    func unfavoriteTweet(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
+        let parameters = ["id": id]
+        post("1.1/favorites/destroy.json", parameters: parameters, progress: nil, success: { (operation, response) in
+            let tweet = Tweet(dictionary: response as! Dictionary)
+            success(tweet)
+        }) { (operation, error) in
+            print("error when unfavorite a tweet: \(error.localizedDescription)")
+            failure(error as NSError)
+        }
+    }
     
     func currentAccount(success: @escaping (User) -> Void, failure: @escaping (NSError) -> Void) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in

@@ -13,7 +13,7 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
@@ -117,8 +117,8 @@ extension TweetsViewController {
         cell.retweetDelegate = self
         cell.favoTweetDelegate = self
         cell.replyTweetDelegate = self
-        
         cell.unRetweetDelegate = self
+        cell.unFavoTweetDelegate = self
         return cell
 
     }
@@ -148,9 +148,17 @@ extension TweetsViewController {
         TwitterClient.sharedInstance?.untweetMessage(tweet.id!, success: { (tweet) in
             cell.decreaseRetweetCount()
         }, failure: { (error) in
-            print("TweetsVC unretweet")
+            print("TweetsVC unretweet error: \(error.localizedDescription)")
         })
         
+    }
+    
+    func unfavoTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
+        TwitterClient.sharedInstance?.unfavoriteTweet(tweet.id!, success: { (tweet) in
+            cell.decreaseFavoCountAndImageColor()
+        }, failure: { (error) in
+            print("TweetsVC unfavo tweet error: \(error.localizedDescription)")
+        })
     }
     
 //    func showActionSheet(tweet: Tweet, cell: TweetCell) {

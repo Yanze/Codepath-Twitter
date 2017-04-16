@@ -104,7 +104,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             if (response["isSuccessful"] != nil) {
                 let newTweet = self.insertNewTweetIntoTableview()
                 self.delegate?.InsertTweet(tweet: newTweet)
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popToRootViewController(animated: true)
             }
             else{
                 self.showAlertBox(title: "Tweet not sent", message: "Whoops! You already said that.")
@@ -123,7 +123,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     func insertNewTweetIntoTableview() -> Tweet {
         let currentUser = User.currentUser
         let user = User(name: currentUser?.name, screenName: currentUser?.screenName, profileUrl: currentUser?.profileUrl, descrip: currentUser?.descrip)
-        let newTweet = Tweet(text: userInputTweetTextView.text!, createdAt: Date(), retweetCount: 0, favoCount: 0, user: user)
+        let newTweet = Tweet(text: userInputTweetTextView.text!, createdAt: Date(), retweetCount: 0, favoCount: 0, isRetweeted: false, isFavorited: false, user: user)
         return newTweet
     }
 

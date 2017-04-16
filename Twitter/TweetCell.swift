@@ -112,7 +112,7 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
 
     var tweet: Tweet? {
         didSet {
-            
+           
             userProfileImgView.layer.cornerRadius = 4
             userProfileImgView.layer.masksToBounds = true
 

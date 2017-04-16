@@ -48,6 +48,7 @@ class EnterReplyMessageViewController: UIViewController, UITextViewDelegate {
         if let user = tweet.user?.screenName {
             let message = "@\(user) \(userInputTextView.text!)"
             TwitterClient.sharedInstance?.postTweetMessage(message, in_reply_to_status_id: tweet.id!, completionHandler: { (response) in
+                self.navigationController?.popToRootViewController(animated: true)
             })
         }
     }

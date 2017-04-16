@@ -22,11 +22,10 @@ class Tweet: NSObject {
     init(dictionary: Dictionary<String, Any>) {
         id = dictionary["id"] as? Int
         text = dictionary["text"] as? String
-//        dump(dictionary)
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoCount = (dictionary["favorite_count"] as? Int) ?? 0
-        isRetweeted = dictionary["retweeted"] as? Bool
-        isFavorited = dictionary["favorited"] as? Bool
+        isRetweeted = dictionary["retweeted"] as? Bool ?? false
+        isFavorited = dictionary["favorited"] as? Bool ?? false
         
         if let createdTime = dictionary["created_at"] as? String {
             let formatter = DateFormatter()
@@ -38,12 +37,14 @@ class Tweet: NSObject {
 
     }
     
-    init(text: String?, createdAt: Date?, retweetCount: Int = 0, favoCount: Int = 0, user: User?) {
+    init(text: String?, createdAt: Date?, retweetCount: Int = 0, favoCount: Int = 0, isRetweeted: Bool = false, isFavorited: Bool = false,  user: User?) {
         self.text = text
         self.createdAt = createdAt
         self.retweetCount = retweetCount
         self.favoCount = favoCount
         self.user = user
+        self.isRetweeted = isRetweeted
+        self.isFavorited = isFavorited
     }
     
     

@@ -58,8 +58,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func untweetMessage(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
         post("1.1/statuses/unretweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) in
-            print("untweet ::::: \(response as Any)")
             let tweet = Tweet(dictionary: response as! Dictionary)
+            print(response as Any)
             success(tweet)
         }) { (operation, error) in
             print("error when untweet: \(error.localizedDescription)")

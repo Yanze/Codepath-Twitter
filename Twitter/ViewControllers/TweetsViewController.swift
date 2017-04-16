@@ -126,17 +126,35 @@ extension TweetsViewController {
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
             cell.increaseRetweetCount(newcount: tweet.retweetCount)
+            print("ReTweet: \(tweet.retweetCount)")
         }, failure: { (error) in
             print(error)
         })
     }
     
+    func cellUnRetweet(tweet: Tweet, cell: TweetCell) {
+        TwitterClient.sharedInstance?.untweetMessage(tweet.id!, success: { (tweet) in
+            cell.decreaseRetweetCount(newcount: tweet.retweetCount - 1)
+            print("unReTweet: \(tweet.retweetCount)")
+        }, failure: { (error) in
+            print("TweetsVC unretweet error: \(error.localizedDescription)")
+        })
+        
+    }
+    
     func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in
-            print("+ \(tweet.favoCount)")
             cell.updateFavoCountAndImageColor(newcount: tweet.favoCount)
         }, failure: { (error) in
             print(error)
+        })
+    }
+    
+    func unfavoTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
+        TwitterClient.sharedInstance?.unfavoriteTweet(tweet.id!, success: { (tweet) in
+            cell.decreaseFavoCountAndImageColor(newcount: tweet.favoCount)
+        }, failure: { (error) in
+            print("TweetsVC unfavo tweet error: \(error.localizedDescription)")
         })
     }
     
@@ -145,23 +163,7 @@ extension TweetsViewController {
         performSegue(withIdentifier: "replySegue", sender: nil)
     }
     
-    func cellUnRetweet(tweet: Tweet, cell: TweetCell) {
-        TwitterClient.sharedInstance?.untweetMessage(tweet.id!, success: { (tweet) in
-            cell.decreaseRetweetCount(newcount: tweet.retweetCount)
-        }, failure: { (error) in
-            print("TweetsVC unretweet error: \(error.localizedDescription)")
-        })
-        
-    }
     
-    func unfavoTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
-        TwitterClient.sharedInstance?.unfavoriteTweet(tweet.id!, success: { (tweet) in
-            cell.decreaseFavoCountAndImageColor(newcount: tweet.favoCount)
-             print("- \(tweet.favoCount)")
-        }, failure: { (error) in
-            print("TweetsVC unfavo tweet error: \(error.localizedDescription)")
-        })
-    }
     
 //    func showActionSheet(tweet: Tweet, cell: TweetCell) {
 //        let actionSheet = UIAlertController()

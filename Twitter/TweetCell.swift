@@ -103,11 +103,21 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
     }
     
     func updateCellRetweetIconState(tweet: Tweet) {
-        increaseRetweetCount(newcount: tweet.retweetCount)
+        if tweet.isRetweeted! {
+            increaseRetweetCount(newcount: tweet.retweetCount)
+        }
+        else {
+            decreaseRetweetCount(newcount: tweet.retweetCount - 1)
+        }
     }
     
     func updateCellLikeIconState(tweet: Tweet) {
-        updateFavoCountAndImageColor(newcount: tweet.retweetCount)
+        if tweet.isFavorited! {
+            updateFavoCountAndImageColor(newcount: tweet.favoCount)
+            
+        }else {
+            decreaseFavoCountAndImageColor(newcount: tweet.favoCount)
+        }
     }
 
     var tweet: Tweet? {

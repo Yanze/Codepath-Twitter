@@ -45,15 +45,37 @@ class DetailViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupIconColor()
+    }
+    
     @IBAction func retweetButtonPressed(_ sender: UIButton) {
-        TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
-            DispatchQueue.main.async {
-                self.retweetsCountLabel.text =  String(tweet.retweetCount)
-                self.detailviewRetweetDelegate?.updateCellRetweetIconState(tweet: tweet)
-            }
-        }, failure: { (error) in
-            print(error)
-        })
+        if tweet.isRetweeted! {
+            TwitterClient.sharedInstance?.untweetMessage(tweet.id!, success: { (tweet) in
+                DispatchQueue.main.async {
+                    tweet.isRetweeted = false
+                    self.retweetsCountLabel.text =  String(tweet.retweetCount - 1)
+                    self.retweetButton.setImage(UIImage(named: "retweet"), for: .normal)
+                    self.detailviewRetweetDelegate?.updateCellRetweetIconState(tweet: tweet)
+                }
+                
+            }, failure: { (error) in
+                print(error)
+            })
+            
+        }else {
+            TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
+                DispatchQueue.main.async {
+                    tweet.isRetweeted = true
+                    self.retweetsCountLabel.text =  String(tweet.retweetCount)
+                    self.retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
+                    self.detailviewRetweetDelegate?.updateCellRetweetIconState(tweet: tweet)
+                }
+            }, failure: { (error) in
+                print(error)
+            })
+        }
     }
     
     @IBAction func replyButtonPressed(_ sender: UIButton) {
@@ -62,14 +84,44 @@ class DetailViewController: UIViewController {
     
     
     @IBAction func likeButtonPressed(_ sender: UIButton) {
-        TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in
-            DispatchQueue.main.async {
-                self.favoCountLabel.text =  String(tweet.favoCount)
-                self.detailviewLikesDelegate?.updateCellLikeIconState(tweet: tweet)
-            }
-        }, failure: { (error) in
-            print(error)
-        })
+        if tweet.isFavorited! {
+            TwitterClient.sharedInstance?.unfavoriteTweet(tweet.id!, success: { (tweet) in
+                DispatchQueue.main.async {
+                    tweet.isFavorited = false
+                    self.favoCountLabel.text =  String(tweet.favoCount)
+                    self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+                    self.detailviewLikesDelegate?.updateCellLikeIconState(tweet: tweet)
+                }
+            }, failure: { (error) in
+                print(error)
+            })
+        }
+        else {
+            TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in
+                DispatchQueue.main.async {
+                    tweet.isFavorited = true
+                    self.favoCountLabel.text =  String(tweet.favoCount)
+                    self.likeButton.setImage(UIImage(named: "like-red"), for: .normal)
+                    self.detailviewLikesDelegate?.updateCellLikeIconState(tweet: tweet)
+                }
+            }, failure: { (error) in
+                print(error)
+            })
+        }
+    }
+    
+    func setupIconColor() {
+        if tweet.isRetweeted! {
+            self.retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
+        }else {
+            self.retweetButton.setImage(UIImage(named: "retweet"), for: .normal)
+        }
+        
+        if tweet.isFavorited! {
+            self.likeButton.setImage(UIImage(named: "like-red"), for: .normal)
+        }else {
+            self.likeButton.setImage(UIImage(named: "like"), for: .normal)
+        }
     }
     
     

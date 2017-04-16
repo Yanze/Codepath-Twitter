@@ -27,15 +27,20 @@ class TwitterClient: BDBOAuth1SessionManager {
         } as? (URLSessionDataTask?, Error) -> Void)
     }
     
-    func postTweetMessage(_ tweetMessage: String!, completionHandler: @escaping ([String: Any]) -> Void) {
-        let parameters: [String: String] = ["status": tweetMessage]
+    func postTweetMessage(_ tweetMessage: String!, in_reply_to_status_id: String?, completionHandler: @escaping ([String: Any]) -> Void) {
+        var parameters: [String: String] = ["status": tweetMessage]
         
-        post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (operation, response) in
-            completionHandler(["isSuccessful": true, "responseObject": response as Any])
-        }) { (operation, error) in
-            print("error when post a new tweet: \(error.localizedDescription)")
-            completionHandler(["error": error.localizedDescription])
+        if in_reply_to_status_id != nil {
+            parameters["in_reply_to_status_id"] = in_reply_to_status_id
         }
+        print(parameters)
+        
+//        post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (operation, response) in
+//            completionHandler(["isSuccessful": true, "responseObject": response as Any])
+//        }) { (operation, error) in
+//            print("error when post a new tweet: \(error.localizedDescription)")
+//            completionHandler(["error": error.localizedDescription])
+//        }
 
     }
     

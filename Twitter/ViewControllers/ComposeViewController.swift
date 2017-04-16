@@ -96,7 +96,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
 
     @IBAction func tweetButtonPressed(_ sender: UIButton) {
         // post message
-        TwitterClient.sharedInstance?.postTweetMessage(userInputTweetTextView.text!, completionHandler: { (response) in
+        TwitterClient.sharedInstance?.postTweetMessage(userInputTweetTextView.text!, in_reply_to_status_id: nil, completionHandler: { (response) in
             if (response["isSuccessful"] != nil) {
                 let newTweet = self.insertNewTweetIntoTableview()
                 self.delegate?.InsertTweet(tweet: newTweet)

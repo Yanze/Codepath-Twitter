@@ -28,6 +28,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var retweetsCountLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
+
     
     
     var tweet: Tweet!
@@ -54,6 +55,11 @@ class DetailViewController: UIViewController {
             print(error)
         })
     }
+    
+    @IBAction func replyButtonPressed(_ sender: UIButton) {
+
+    }
+    
     
     @IBAction func likeButtonPressed(_ sender: UIButton) {
         TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in

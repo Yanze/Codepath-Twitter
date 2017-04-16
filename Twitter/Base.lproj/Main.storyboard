@@ -406,6 +406,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Reply"/>
+                                <connections>
+                                    <action selector="replyButtonPressed:" destination="sfr-Sm-bTa" eventType="touchUpInside" id="oJE-aY-0dk"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>

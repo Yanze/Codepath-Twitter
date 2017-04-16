@@ -18,7 +18,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     var myLoginFailure: ((NSError) -> ())?
     
     func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (NSError) -> Void) {
-        get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+        let parameters: [String: String] = ["count": "200"]
+        
+        get("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
             let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
 
             success(tweets)
@@ -34,8 +36,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         if let id = in_reply_to_status_id {
             parameters["in_reply_to_status_id"] = String(id)
         }
-        print(parameters)
-        
+ 
         post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (operation, response) in
             completionHandler(["isSuccessful": true, "responseObject": response as Any])
         }) { (operation, error) in
@@ -65,6 +66,18 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error as NSError)
         }
     }
+    
+    func untweetMessage(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
+        post("1.1/statuses/unretweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) in
+            print("untweet ::::: \(response as Any)")
+            let tweet = Tweet(dictionary: response as! Dictionary)
+            success(tweet)
+        }) { (operation, error) in
+            print("error when untweet: \(error.localizedDescription)")
+            failure(error as NSError)
+        }
+    }
+    
     
     func currentAccount(success: @escaping (User) -> Void, failure: @escaping (NSError) -> Void) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in

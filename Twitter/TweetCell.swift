@@ -13,6 +13,10 @@ protocol RetweetDelegate {
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell)
 }
 
+protocol UnRetweetDelegate {
+    func cellUnRetweet(tweet: Tweet, cell: TweetCell)
+}
+
 protocol FavoriteDelegate {
     func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell)
 }
@@ -28,6 +32,8 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
     var favoTweetDelegate: FavoriteDelegate?
     var replyTweetDelegate: ReplyDelegate?
     
+    var unRetweetDelegate: UnRetweetDelegate?
+    
     @IBOutlet weak var userProfileImgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
@@ -41,7 +47,13 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
     
     
     @IBAction func retweetMessage(_ sender: UIButton) {
-        self.retweetDelegate?.cellRetweetButtonPressed(tweet: tweet!, cell: self)
+        if !(tweet?.isRetweeted)! {
+            
+            self.retweetDelegate?.cellRetweetButtonPressed(tweet: tweet!, cell: self)
+        }else {
+            self.unRetweetDelegate?.cellUnRetweet(tweet: tweet!, cell: self)
+        }
+       
     }
     
     @IBAction func favoriteTweet(_ sender: UIButton) {
@@ -54,12 +66,19 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
     
     
     func increaseRetweetCount() {
-        retweetCountLabel.text = String((tweet?.retweetCount)! + 1)
+        tweet?.isRetweeted = true
+        retweetCountLabel.text = String((tweet?.retweetCount)!)
         retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
     }
     
+    func decreaseRetweetCount() {
+        tweet?.isRetweeted = false
+        retweetCountLabel.text = String((tweet?.retweetCount)!)
+        retweetButton.setImage(UIImage(named: "retweet"), for: .normal)
+    }
+    
     func updateFavoCountAndImageColor() {
-        likeCountLabel.text = String((tweet?.favoCount)! + 1)
+        likeCountLabel.text = String((tweet?.favoCount)!)
         likeButton.setImage(UIImage(named: "like-red"), for: .normal)
     }
     
@@ -100,6 +119,12 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
             
             if let retweets = tweet?.retweetCount {
                 retweetCountLabel.text = String(retweets)
+            }
+            
+            if (tweet?.isRetweeted)! {
+                retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
+            }else {
+                retweetButton.setImage(UIImage(named: "retweet"), for: .normal)
             }
             
             replyCountLabel.text = String(0)

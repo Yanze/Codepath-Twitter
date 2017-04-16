@@ -13,7 +13,7 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
@@ -117,12 +117,18 @@ extension TweetsViewController {
         cell.retweetDelegate = self
         cell.favoTweetDelegate = self
         cell.replyTweetDelegate = self
+        
+        cell.unRetweetDelegate = self
         return cell
 
     }
     
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell) {
-        showActionSheet(tweet: tweet, cell: cell)
+        TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
+            cell.increaseRetweetCount()
+        }, failure: { (error) in
+            print(error)
+        })
     }
     
     func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
@@ -138,22 +144,31 @@ extension TweetsViewController {
         performSegue(withIdentifier: "replySegue", sender: nil)
     }
     
-    func showActionSheet(tweet: Tweet, cell: TweetCell) {
-        let actionSheet = UIAlertController()
-        let retweet = UIAlertAction(title: "Retweet", style: UIAlertActionStyle.default) {(ACTION) in
-            // retweet
-            TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
-                cell.increaseRetweetCount()
-            }, failure: { (error) in
-                print(error)
-            })
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {(ACTION) in}
+    func cellUnRetweet(tweet: Tweet, cell: TweetCell) {
+        TwitterClient.sharedInstance?.untweetMessage(tweet.id!, success: { (tweet) in
+            cell.decreaseRetweetCount()
+        }, failure: { (error) in
+            print("TweetsVC unretweet")
+        })
         
-        actionSheet.addAction(retweet)
-        actionSheet.addAction(cancel)
-        self.present(actionSheet, animated: true, completion: nil)
     }
+    
+//    func showActionSheet(tweet: Tweet, cell: TweetCell) {
+//        let actionSheet = UIAlertController()
+//        let retweet = UIAlertAction(title: "Retweet", style: UIAlertActionStyle.default) {(ACTION) in
+//            // retweet
+//            TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
+//                cell.increaseRetweetCount()
+//            }, failure: { (error) in
+//                print(error)
+//            })
+//        }
+//        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {(ACTION) in}
+//        
+//        actionSheet.addAction(retweet)
+//        actionSheet.addAction(cancel)
+//        self.present(actionSheet, animated: true, completion: nil)
+//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tweetDetailSegue" {

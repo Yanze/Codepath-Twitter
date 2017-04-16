@@ -14,6 +14,7 @@ class Tweet: NSObject {
     var createdAt: Date?
     var retweetCount: Int = 0
     var favoCount: Int = 0
+    var isRetweeted: Bool?
     var user: User?
 
     
@@ -23,6 +24,7 @@ class Tweet: NSObject {
 //        dump(dictionary)
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoCount = (dictionary["favorite_count"] as? Int) ?? 0
+        isRetweeted = dictionary["retweeted"] as? Bool
         
         if let createdTime = dictionary["created_at"] as? String {
             let formatter = DateFormatter()

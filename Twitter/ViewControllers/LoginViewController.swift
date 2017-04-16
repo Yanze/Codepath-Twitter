@@ -12,8 +12,17 @@ import BDBOAuth1Manager
 class LoginViewController: UIViewController {
     
     
+    @IBOutlet var backgroundView: UIView!
+    @IBOutlet weak var loginButton: UIButton!
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loginButton.layer.borderWidth = 1.5
+        loginButton.layer.borderColor = UIColor.white.cgColor
+        loginButton.layer.cornerRadius = 3.5
+        backgroundView.backgroundColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
+    }
     
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {

@@ -22,11 +22,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkh-Lh-hEb">
-                                <rect key="frame" x="85" y="494" width="204" height="73"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.33177443658468353" green="0.83706904306353969" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkh-Lh-hEb">
+                                <rect key="frame" x="70" y="467" width="235" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="lIp-cd-olC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="Log in with Twitter">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
@@ -34,16 +35,33 @@
                                     <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ycI-jw-Yu0"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Twitter_Logo_White_On_Blue" translatesAutoresizingMaskIntoConstraints="NO" id="47Z-dA-Cbu">
+                                <rect key="frame" x="112" y="138" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="PpP-h2-ecg"/>
+                                    <constraint firstAttribute="height" constant="150" id="wlF-5D-gK3"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lkh-Lh-hEb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="47Z-dA-Cbu" secondAttribute="bottom" constant="50" id="7eG-Yr-NdJ"/>
+                            <constraint firstItem="lkh-Lh-hEb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="70" id="F6h-Qx-xXQ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lkh-Lh-hEb" secondAttribute="bottom" constant="150" id="OaX-ox-Irq"/>
+                            <constraint firstAttribute="trailing" secondItem="lkh-Lh-hEb" secondAttribute="trailing" constant="70" id="UlI-kw-BdG"/>
+                            <constraint firstItem="47Z-dA-Cbu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YYV-l9-qbI"/>
+                            <constraint firstItem="47Z-dA-Cbu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="118" id="phL-pg-jxO"/>
+                            <constraint firstItem="lkh-Lh-hEb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="u5j-Jk-ocN"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundView" destination="8bC-Xf-vdC" id="dxq-eh-FRN"/>
+                        <outlet property="loginButton" destination="lkh-Lh-hEb" id="Zf2-Uv-Cdx"/>
                         <segue destination="BJ1-HC-n60" kind="presentation" identifier="loginSegue" id="flP-Yi-plc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="106" y="106"/>
+            <point key="canvasLocation" x="104.8" y="105.69715142428787"/>
         </scene>
         <!--Home-->
         <scene sceneID="okI-ce-h85">
@@ -625,6 +643,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Twitter_Logo_White_On_Blue" width="400" height="400"/>
         <image name="like" width="21" height="21"/>
         <image name="reply" width="24" height="24"/>
         <image name="retweet" width="27" height="27"/>

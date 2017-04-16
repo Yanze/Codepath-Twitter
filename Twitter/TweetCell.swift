@@ -74,36 +74,40 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
     }
     
     
-    func increaseRetweetCount() {
+    func increaseRetweetCount(newcount: Int) {
         tweet?.isRetweeted = true
-        retweetCountLabel.text = String((tweet?.retweetCount)! + 1)
+        tweet?.retweetCount = newcount
+        retweetCountLabel.text = String((tweet?.retweetCount)!)
         retweetButton.setImage(UIImage(named: "retweet@2xgreen"), for: .normal)
     }
     
-    func decreaseRetweetCount() {
+    func decreaseRetweetCount(newcount: Int) {
         tweet?.isRetweeted = false
-        retweetCountLabel.text = String((tweet?.retweetCount)! - 1)
+        tweet?.retweetCount = newcount
+        retweetCountLabel.text = String((tweet?.retweetCount)!)
         retweetButton.setImage(UIImage(named: "retweet"), for: .normal)
     }
     
-    func updateFavoCountAndImageColor() {
+    func updateFavoCountAndImageColor(newcount: Int) {
         tweet?.isFavorited = true
-        likeCountLabel.text = String((tweet?.favoCount)! + 1)
+        tweet?.favoCount = newcount
+        likeCountLabel.text = String((tweet?.favoCount)!)
         likeButton.setImage(UIImage(named: "like-red"), for: .normal)
     }
     
-    func decreaseFavoCountAndImageColor() {
+    func decreaseFavoCountAndImageColor(newcount: Int) {
         tweet?.isFavorited = false
-        likeCountLabel.text = String((tweet?.favoCount)! - 1)
+        tweet?.favoCount = newcount 
+        likeCountLabel.text = String((tweet?.favoCount)!)
         likeButton.setImage(UIImage(named: "like"), for: .normal)
     }
     
     func updateCellRetweetIconState(tweet: Tweet) {
-        increaseRetweetCount()
+        increaseRetweetCount(newcount: tweet.retweetCount)
     }
     
     func updateCellLikeIconState(tweet: Tweet) {
-        updateFavoCountAndImageColor()
+        updateFavoCountAndImageColor(newcount: tweet.retweetCount)
     }
 
     var tweet: Tweet? {

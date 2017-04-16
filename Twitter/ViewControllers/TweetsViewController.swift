@@ -125,7 +125,7 @@ extension TweetsViewController {
     
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
-            cell.increaseRetweetCount()
+            cell.increaseRetweetCount(newcount: tweet.retweetCount)
         }, failure: { (error) in
             print(error)
         })
@@ -133,7 +133,8 @@ extension TweetsViewController {
     
     func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.favoriteTweet(tweet.id!, success: { (tweet) in
-            cell.updateFavoCountAndImageColor()
+            print("+ \(tweet.favoCount)")
+            cell.updateFavoCountAndImageColor(newcount: tweet.favoCount)
         }, failure: { (error) in
             print(error)
         })
@@ -146,7 +147,7 @@ extension TweetsViewController {
     
     func cellUnRetweet(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.untweetMessage(tweet.id!, success: { (tweet) in
-            cell.decreaseRetweetCount()
+            cell.decreaseRetweetCount(newcount: tweet.retweetCount)
         }, failure: { (error) in
             print("TweetsVC unretweet error: \(error.localizedDescription)")
         })
@@ -155,7 +156,8 @@ extension TweetsViewController {
     
     func unfavoTweetButtonPressed(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.unfavoriteTweet(tweet.id!, success: { (tweet) in
-            cell.decreaseFavoCountAndImageColor()
+            cell.decreaseFavoCountAndImageColor(newcount: tweet.favoCount)
+             print("- \(tweet.favoCount)")
         }, failure: { (error) in
             print("TweetsVC unfavo tweet error: \(error.localizedDescription)")
         })

@@ -96,6 +96,10 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
 
     @IBAction func tweetButtonPressed(_ sender: UIButton) {
         // post message
+        if userInputTweetTextView.text == "What's happening?" || userInputTweetTextView.text.isEmpty  {
+            showAlertBox(title: "Enter some text", message: "Cannot tweet an empty message.")
+        }
+        
         TwitterClient.sharedInstance?.postTweetMessage(userInputTweetTextView.text!, in_reply_to_status_id: nil, completionHandler: { (response) in
             if (response["isSuccessful"] != nil) {
                 let newTweet = self.insertNewTweetIntoTableview()
@@ -103,13 +107,13 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
                 self.navigationController?.popViewController(animated: true)
             }
             else{
-                self.showAlertBox()
+                self.showAlertBox(title: "Tweet not sent", message: "Whoops! You already said that.")
             }
         })
     }
     
-    func showAlertBox() {
-        let alertVC = UIAlertController(title: "Tweet not sent", message: "Whoops! You already said that.", preferredStyle: .alert)
+    func showAlertBox(title: String, message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
         alertVC.addAction(okAction)

@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var retweetButton: UIButton!
 
     
-    
+    var activeTextField: UITextField?
     var tweet: Tweet!
     var detailviewRetweetDelegate: DetailViewRetweetDelegate?
     var detailviewLikesDelegate: DetailViewLikesDelegate?
@@ -57,7 +57,7 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func replyButtonPressed(_ sender: UIButton) {
-
+        performSegue(withIdentifier: "enterReplyMessageSegue", sender: nil)
     }
     
     
@@ -111,6 +111,13 @@ class DetailViewController: UIViewController {
     func setupRetweetsandFavoCount() {
         retweetsCountLabel.text =  String(tweet.retweetCount)
         favoCountLabel.text = String(tweet.favoCount)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "enterReplyMessageSegue" {
+            let vc = segue.destination as! EnterReplyMessageViewController
+            vc.tweet = tweet
+        }
     }
     
 

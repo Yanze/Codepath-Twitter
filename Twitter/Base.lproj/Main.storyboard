@@ -216,6 +216,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="55w-IX-yt8">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="New"/>
                                 <connections>
                                     <segue destination="yrV-A4-K3X" kind="show" identifier="composeSegue" id="dxe-CF-LuK"/>
@@ -334,6 +335,9 @@
                                     <constraint firstAttribute="height" constant="20" id="iDb-g5-ogP"/>
                                 </constraints>
                                 <state key="normal" image="reply"/>
+                                <connections>
+                                    <action selector="replyButtonPressed:" destination="sfr-Sm-bTa" eventType="touchUpInside" id="QCy-o8-gO4"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXi-7v-8nX">
                                 <rect key="frame" x="97" y="298" width="20" height="20"/>
@@ -422,11 +426,97 @@
                         <outlet property="tweetTextLabel" destination="r3K-BD-oLQ" id="LNP-Iy-URi"/>
                         <outlet property="userProfileImgView" destination="fUt-tE-BnR" id="Qb3-w7-jwk"/>
                         <outlet property="usernameLabel" destination="Qyy-Cl-hji" id="7sh-jM-wbM"/>
+                        <segue destination="IH1-5H-eZl" kind="show" identifier="enterReplyMessageSegue" id="4C1-QN-9Ho"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2z-2F-6RG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2228" y="507.79610194902551"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="obG-8u-XR7">
+            <objects>
+                <viewController id="IH1-5H-eZl" customClass="EnterReplyMessageViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u7d-h2-j39"/>
+                        <viewControllerLayoutGuide type="bottom" id="hcc-qy-eyS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gZK-At-qDm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replying to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rc6-rw-Bwp">
+                                <rect key="frame" x="23" y="93" width="64" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.41731440359999999" green="0.41731440359999999" blue="0.41731440359999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fka-CS-Nsb">
+                                <rect key="frame" x="95" y="93" width="265" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8if-0u-2Zp">
+                                <rect key="frame" x="15" y="116" width="345" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="vnn-UB-WEv"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uiT-Aw-IFG">
+                                <rect key="frame" x="15" y="125" width="345" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="9FZ-wV-Oa7"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I8S-sn-lWE">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="uiT-Aw-IFG" firstAttribute="leading" secondItem="gZK-At-qDm" secondAttribute="leading" constant="15" id="4dG-Os-9TY"/>
+                            <constraint firstItem="Fka-CS-Nsb" firstAttribute="centerY" secondItem="Rc6-rw-Bwp" secondAttribute="centerY" id="E7x-EP-JT3"/>
+                            <constraint firstItem="Fka-CS-Nsb" firstAttribute="leading" secondItem="Rc6-rw-Bwp" secondAttribute="trailing" constant="8" id="EVw-bw-zwg"/>
+                            <constraint firstItem="Rc6-rw-Bwp" firstAttribute="leading" secondItem="gZK-At-qDm" secondAttribute="leadingMargin" constant="7" id="Ftd-dl-H22"/>
+                            <constraint firstItem="uiT-Aw-IFG" firstAttribute="top" secondItem="8if-0u-2Zp" secondAttribute="bottom" constant="8" id="L1I-87-kIz"/>
+                            <constraint firstAttribute="trailing" secondItem="Fka-CS-Nsb" secondAttribute="trailing" constant="15" id="PWt-cR-vm4"/>
+                            <constraint firstItem="8if-0u-2Zp" firstAttribute="top" secondItem="Fka-CS-Nsb" secondAttribute="bottom" constant="8" id="QiH-P8-Ugn"/>
+                            <constraint firstItem="Rc6-rw-Bwp" firstAttribute="top" secondItem="u7d-h2-j39" secondAttribute="bottom" constant="29" id="iib-lR-d8k"/>
+                            <constraint firstItem="8if-0u-2Zp" firstAttribute="leading" secondItem="gZK-At-qDm" secondAttribute="leading" constant="15" id="jgX-Op-YFw"/>
+                            <constraint firstAttribute="trailing" secondItem="uiT-Aw-IFG" secondAttribute="trailing" constant="15" id="mKY-ov-ddL"/>
+                            <constraint firstItem="uiT-Aw-IFG" firstAttribute="centerX" secondItem="gZK-At-qDm" secondAttribute="centerX" id="ril-JB-Tdj"/>
+                            <constraint firstItem="Fka-CS-Nsb" firstAttribute="top" secondItem="u7d-h2-j39" secondAttribute="bottom" constant="29" id="vzr-87-eWo"/>
+                            <constraint firstAttribute="trailing" secondItem="8if-0u-2Zp" secondAttribute="trailing" constant="15" id="zgC-SU-2hJ"/>
+                            <constraint firstItem="8if-0u-2Zp" firstAttribute="centerX" secondItem="gZK-At-qDm" secondAttribute="centerX" id="zn8-gi-YVb"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="eeu-7b-Xaj">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="qzm-B6-oAd">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mLo-j5-Wea">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Send"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="replyToLabel" destination="Fka-CS-Nsb" id="2bd-xn-btd"/>
+                        <outlet property="userInputTextView" destination="uiT-Aw-IFG" id="Nxj-Nd-ifC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U8C-bb-3Ry" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2888.8000000000002" y="507.79610194902551"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="ksL-mJ-gSb">

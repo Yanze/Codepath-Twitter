@@ -64,16 +64,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        case 2:
             
         case 3:
-            logout()
+            Helpers.sharedInstance.logout()
             break;
         default:
             break;
         }
     }
     
-    func logout() {
-        TwitterClient.sharedInstance?.logout()
-    }
+    
 
     func pullToRefresh() {
         navigationController?.navigationBar.barTintColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)

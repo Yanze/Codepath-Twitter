@@ -22,9 +22,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var containsTableView: UIView!
 
 
+     var sideBar = SideBar()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        sideBar = SideBar(sourceView: view, menuItems: ["Profile", "Timeline", "Mentioned", "Log out"])
+        sideBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,4 +59,29 @@ class ProfileViewController: UIViewController {
     }
 
 
+}
+
+extension ProfileViewController: SideBardelegate {
+    func sideBarModeChanged(_ mode: Bool) {
+        view.layoutIfNeeded()
+//        leftBarItem.tintColor = mode ? .clear : .white
+    }
+    
+    func sideBarDidSelecteButtonAtIndex(_ index: Int) {
+        switch (index) {
+        case 0:
+            let profileVc = self.storyboard?.instantiateViewController(withIdentifier: "profileVC")
+            self.navigationController?.pushViewController(profileVc!, animated: true)
+        case 1:
+            let timelineVc = self.storyboard?.instantiateViewController(withIdentifier: "timelineVC")
+            self.navigationController?.pushViewController(timelineVc!, animated: true)
+            //        case 2:
+            
+        case 3:
+            Helpers.sharedInstance.logout()
+            break;
+        default:
+            break;
+        }
+    }
 }

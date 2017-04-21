@@ -20,4 +20,8 @@ class Helpers: NSObject {
         target.present(alertVC, animated: true, completion: nil)
     }
     
+    func logout() {
+        TwitterClient.sharedInstance?.logout()
+    }
+    
 }

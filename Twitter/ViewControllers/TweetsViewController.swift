@@ -55,10 +55,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func sideBarDidSelecteButtonAtIndex(_ index: Int) {
         switch (index) {
-//        case 0:
-//            
-//        case 1:
-//            
+        case 0:
+            let profileVc = self.storyboard?.instantiateViewController(withIdentifier: "profileVC")
+            self.navigationController?.pushViewController(profileVc!, animated: true)
+        case 1:
+            let timelineVc = self.storyboard?.instantiateViewController(withIdentifier: "timelineVC")
+            self.navigationController?.pushViewController(timelineVc!, animated: true)
 //        case 2:
             
         case 3:

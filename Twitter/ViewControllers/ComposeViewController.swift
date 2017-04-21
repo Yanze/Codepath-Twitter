@@ -122,7 +122,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     
     func insertNewTweetIntoTableview() -> Tweet {
         let currentUser = User.currentUser
-        let user = User(name: currentUser?.name, screenName: currentUser?.screenName, profileUrl: currentUser?.profileUrl, descrip: currentUser?.descrip)
+        let user = User(name: currentUser?.name, screenName: currentUser?.screenName, profileUrl: currentUser?.profileUrl, descrip: currentUser?.descrip, followers_count: 0, followings_count: 0, statuses_count: 0)
         let newTweet = Tweet(text: userInputTweetTextView.text!, createdAt: Date(), retweetCount: 0, favoCount: 0, isRetweeted: false, isFavorited: false, user: user)
         return newTweet
     }

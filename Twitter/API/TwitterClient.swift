@@ -29,6 +29,16 @@ class TwitterClient: BDBOAuth1SessionManager {
         } as? (URLSessionDataTask?, Error) -> Void)
     }
     
+    func getCurrentUserProfile(_ screen_name: String, completionHandler: @escaping (User) -> Void) {
+        get("1.1/users/show.json?screen_name=\(screen_name)", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+            print(response as Any)
+            let user = User(dictionary: response as! Dictionary)
+            completionHandler(user)
+        }, failure: { (task: URLSessionDataTask?, error: NSError) in
+            print("error in twitter client is gettign user account info \(error.localizedDescription)")
+            } as? (URLSessionDataTask?, Error) -> Void)
+    }
+    
     func postTweetMessage(_ tweetMessage: String!, in_reply_to_status_id: Int?, completionHandler: @escaping ([String: Any]) -> Void) {
    
         var parameters: [String: String] = ["status": tweetMessage]
@@ -96,7 +106,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             success(user)
    
         }, failure: { (task: URLSessionDataTask?, error: NSError) in
-            print("error in twitter client in appdelegate when getting my account info")
+            print("error in twitter client getting my account info")
             failure(error)
         } as? (URLSessionDataTask?, Error) -> Void)
     }

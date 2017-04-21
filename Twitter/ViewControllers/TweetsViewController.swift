@@ -54,8 +54,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func sideBarDidSelecteButtonAtIndex(_ index: Int) {
-        if index == 3 {
+        switch (index) {
+//        case 0:
+//            
+//        case 1:
+//            
+//        case 2:
+            
+        case 3:
             logout()
+            break;
+        default:
+            break;
         }
     }
     

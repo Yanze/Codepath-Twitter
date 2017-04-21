@@ -13,7 +13,7 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate, SideBardelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
@@ -21,12 +21,16 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     var tweets: [Tweet]!
     var tweetfromReply: Tweet?
+    var sideBar = SideBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
 
+        sideBar = SideBar(sourceView: view, menuItems: ["Profile", "Timeline", "Mentioned", "Log out"])
+        sideBar.delegate = self
+        
         getAllTweets()
         pullToRefresh()
 
@@ -42,6 +46,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        })
 //    }
 
+    func sideBarDidSelecteButtonAtIndex(_ index: Int) {
+        if index == 3 {
+            logout()
+        }
+    }
+    
+    func logout() {
+        TwitterClient.sharedInstance?.logout()
+    }
 
     func pullToRefresh() {
         navigationController?.navigationBar.barTintColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
@@ -87,11 +100,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }, failure: { (error: NSError) in
             print(error.localizedDescription)
         })
-    }
-    
-
-    @IBAction func logout(_ sender: UIButton) {
-        TwitterClient.sharedInstance?.logout()
     }
 
     func InsertTweet(tweet: Tweet) {
@@ -203,5 +211,7 @@ extension TweetsViewController {
         }
         
     }
+    
+    
 
 }

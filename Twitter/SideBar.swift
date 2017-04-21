@@ -13,7 +13,9 @@ import UIKit
     func sideBarDidSelecteButtonAtIndex(_ index: Int)
     @objc optional func sideBarWillClose()
     @objc optional func sideBarWillOpen()
+    func sideBarModeChanged(_ mode: Bool)
 }
+
 
 class SideBar: NSObject, SideBarTableViewControllerDelegate {
     
@@ -57,15 +59,15 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
     }
     
     func setupSideBar() {
-        sideBarContainerView.frame = CGRect(x: -barWidth - 1, y: originView.frame.origin.y, width: barWidth, height: originView.frame.size.height)
-        sideBarContainerView.backgroundColor = UIColor.clear
+        sideBarContainerView.frame = CGRect(x: -barWidth - 1, y: 50, width: barWidth, height: originView.frame.size.height)
+        sideBarContainerView.backgroundColor = UIColor(red: 62/255, green: 174/255, blue: 242/255, alpha: 1)
         sideBarContainerView.clipsToBounds = false
         
         originView.addSubview(sideBarContainerView)
         
-        let blurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.light))
-        blurView.frame = sideBarContainerView.bounds
-        sideBarContainerView.addSubview(blurView)
+//        let blurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.light))
+//        blurView.frame = sideBarContainerView.bounds
+//        sideBarContainerView.addSubview(blurView)
         
         
         sideBarTableViewController.delegate = self
@@ -95,6 +97,7 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
     func showSidebar(_ shouldOpen: Bool) {
         animator.removeAllBehaviors()
         isSideBarOpen = shouldOpen
+        delegate?.sideBarModeChanged(shouldOpen)
         
         let gravityX:CGFloat = (shouldOpen) ? 0.5 : -0.5
         let magnitude:CGFloat = (shouldOpen) ? 20 : -20

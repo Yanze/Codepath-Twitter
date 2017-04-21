@@ -13,15 +13,17 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate, SideBardelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate, SideBardelegate  {
 
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var leftBarItem: UIBarButtonItem!
 
 
     var tweets: [Tweet]!
     var tweetfromReply: Tweet?
     var sideBar = SideBar()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //            print(error.localizedDescription)
 //        })
 //    }
+    
+    func sideBarModeChanged(_ mode: Bool) {
+        view.layoutIfNeeded()
+        leftBarItem.tintColor = mode ? .clear : .white
+    }
 
     func sideBarDidSelecteButtonAtIndex(_ index: Int) {
         if index == 3 {

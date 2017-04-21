@@ -220,6 +220,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="DXv-ia-KPP">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" image="move-to-next" id="fyB-cu-LtJ"/>
                         <barButtonItem key="rightBarButtonItem" image="compose" id="gsD-ht-pF6">
                             <connections>
                                 <segue destination="yrV-A4-K3X" kind="show" id="uqP-8M-Q8A"/>
@@ -227,6 +228,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="leftBarItem" destination="fyB-cu-LtJ" id="DoW-wl-5jV"/>
                         <outlet property="tableView" destination="chS-Sg-OVF" id="H99-7M-8qc"/>
                         <segue destination="sfr-Sm-bTa" kind="show" identifier="replySegue" id="MyI-oH-zUA"/>
                     </connections>
@@ -630,6 +632,7 @@
         <image name="Twitter_Logo_White_On_Blue" width="400" height="400"/>
         <image name="compose" width="40" height="40"/>
         <image name="like" width="21" height="21"/>
+        <image name="move-to-next" width="24" height="24"/>
         <image name="reply" width="24" height="24"/>
         <image name="retweet" width="27" height="27"/>
     </resources>

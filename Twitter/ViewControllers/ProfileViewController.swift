@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import SVProgressHUD
 
 class ProfileViewController: UIViewController {
     
@@ -16,8 +17,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var deviderView3: UIView!
     
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var settingsButton: UIButton!
-    @IBOutlet weak var usersButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var containsTableView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -32,6 +31,8 @@ class ProfileViewController: UIViewController {
 
     var sideBar = SideBar()
     var user: User?
+    var tweets = [Tweet]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +40,15 @@ class ProfileViewController: UIViewController {
         sideBar = SideBar(sourceView: view, menuItems: ["Profile", "Timeline", "Mentioned", "Log out"])
         sideBar.delegate = self
 
-
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getUserProfile()
+        getUserTimeLine()
+//        getMyRetweets()
         
     }
 
@@ -57,6 +61,25 @@ class ProfileViewController: UIViewController {
         TwitterClient.sharedInstance?.getCurrentUserProfile((User.currentUser?.screenName!)!, completionHandler: { (user) in
             self.user = user
             self.setupUserProfile()
+            self.tableView.reloadData()
+        })
+    }
+    
+    func getUserTimeLine() {
+        SVProgressHUD.show()
+        TwitterClient.sharedInstance?.getUserTimeline((User.currentUser?.screenName!)!, count: 20, completionHandler: { (tweets) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            SVProgressHUD.dismiss()
+        })
+    }
+    
+    func getMyRetweets() {
+        TwitterClient.sharedInstance?.getMyRetweets((User.currentUser?.screenName!)!, count: 50, completionHandler: { (tweets) in
+            self.tweets = tweets
+            for t in self.tweets {
+                dump(t)
+            }
             self.tableView.reloadData()
         })
     }
@@ -107,6 +130,22 @@ class ProfileViewController: UIViewController {
 
 
 }
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.tweets.isEmpty {
+            return 0
+        }
+        return self.tweets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileViewCell", for: indexPath) as! ProfileViewCell
+        cell.tweet = self.tweets[indexPath.row]
+        return cell
+    }
+}
+
 
 extension ProfileViewController: SideBardelegate {
     func sideBarModeChanged(_ mode: Bool) {

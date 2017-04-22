@@ -19,9 +19,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (NSError) -> Void) {
         let parameters: [String: String] = ["count": "200"]
-        
         get("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-            let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
+            let tweets = Tweet.tweets(dictionaries: (response as? [Dictionary])!)
 
             success(tweets)
         }, failure: { (task: URLSessionDataTask, error: NSError) in
@@ -29,9 +28,28 @@ class TwitterClient: BDBOAuth1SessionManager {
         } as? (URLSessionDataTask?, Error) -> Void)
     }
     
+    func getUserTimeline(_ screenName: String, count: Int?, completionHandler: @escaping ([Tweet]) -> Void) {
+        let parameters = ["screen_name": screenName, "count": count!, "include_entities": true, "contributor_details": true] as [String : Any]
+        get("1.1/statuses/user_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+            let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
+            completionHandler(tweets)
+        }, failure: { (task: URLSessionDataTask, error: NSError) in
+            print("error when getting user_timeline tweets \(error.localizedDescription)")
+            } as? (URLSessionDataTask?, Error) -> Void)
+    }
+    
+    func getMyRetweets(_ screenName: String, count: Int, completionHandler: @escaping ([Tweet]) -> Void) {
+        let parameters = ["screen_name": screenName, "count": count] as [String : Any]
+        get("1.1/statuses/retweets_of_me.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+            let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
+            completionHandler(tweets)
+        }, failure: { (task: URLSessionDataTask, error: NSError) in
+
+            } as? (URLSessionDataTask?, Error) -> Void)
+    }
+    
     func getCurrentUserProfile(_ screen_name: String, completionHandler: @escaping (User) -> Void) {
         get("1.1/users/show.json?screen_name=\(screen_name)", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-            print(response as Any)
             let user = User(dictionary: response as! Dictionary)
             completionHandler(user)
         }, failure: { (task: URLSessionDataTask?, error: NSError) in

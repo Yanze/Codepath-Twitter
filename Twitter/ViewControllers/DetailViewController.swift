@@ -38,9 +38,8 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUserProfileImg()
-        setupNameLabel()
+        propulateData()
         setupTweetTime()
-        setuptext()
         setupRetweetsandFavoCount()
         
     }
@@ -128,18 +127,25 @@ class DetailViewController: UIViewController {
     func setupUserProfileImg() {
         userProfileImgView.layer.cornerRadius = 4
         userProfileImgView.layer.masksToBounds = true
-        if let imgLink = tweet.user?.profileUrl {
-            userProfileImgView.setImageWith(imgLink)
-        }
+        
+        
+        let imgLink = tweet.isRetweeted! ? tweet.retweetedStatus?.originalTweetUser?.profileUrl : tweet.user?.profileUrl
+        
+        userProfileImgView.setImageWith(imgLink!)
+        
     }
     
-    func setupNameLabel() {
-        if let name = tweet.user?.name {
-            nameLabel.text = name
+    func propulateData() {
+        let name = tweet.isRetweeted! ? tweet.retweetedStatus?.originalTweetUser?.name : tweet.user?.name
+        nameLabel.text = name
+        
+        let screenName = tweet.isRetweeted! ? tweet.retweetedStatus?.originalTweetUser?.screenName : tweet.user?.screenName
+        if let sname = screenName {
+            usernameLabel.text = "@\(sname)"
         }
-        if let username = tweet.user?.screenName {
-            usernameLabel.text = "@\(username)"
-        }
+        let tweetText = tweet.isRetweeted! ? tweet.retweetedStatus?.tweetText : tweet.text
+        tweetTextLabel.text = tweetText
+
     }
     
     func setupTweetTime() {
@@ -153,12 +159,7 @@ class DetailViewController: UIViewController {
             createdAtLabel.text = dateStr
         }
     }
-    
-    func setuptext() {
-        if let tweetText = tweet.text {
-            tweetTextLabel.text = tweetText
-        }
-    }
+
     
     func setupRetweetsandFavoCount() {
         retweetsCountLabel.text =  String(tweet.retweetCount)

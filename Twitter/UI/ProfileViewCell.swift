@@ -29,7 +29,7 @@ class ProfileViewCell: UITableViewCell {
                 tweetTextLabel.text = discrip
             }
             if let screenName = tweet?.retweetedStatus?.originalTweetUser?.screenName {
-                screenNameLabel.text = screenName
+                screenNameLabel.text = "@\(screenName)"
             }
             if let imgLink = tweet?.retweetedStatus?.originalTweetUser?.profileUrl {
                 userProfileImgView.setImageWith(imgLink)

@@ -120,5 +120,9 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
         animator.addBehavior(sideBarBehavior)
         
     }
+    
+    func removeFromView() {
+        sideBarContainerView.removeFromSuperview()
+    }
 
 }

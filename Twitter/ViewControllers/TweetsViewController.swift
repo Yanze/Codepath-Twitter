@@ -69,6 +69,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         default:
             break;
         }
+//        sideBar.showSidebar(false)
+//        sideBar.removeFromView()
     }
     
     

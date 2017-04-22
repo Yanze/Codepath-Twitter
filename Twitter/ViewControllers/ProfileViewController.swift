@@ -42,13 +42,13 @@ class ProfileViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
+        self.navigationItem.hidesBackButton = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getUserProfile()
         getUserTimeLine()
-//        getMyRetweets()
         
     }
 
@@ -71,16 +71,6 @@ class ProfileViewController: UIViewController {
             self.tweets = tweets
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
-        })
-    }
-    
-    func getMyRetweets() {
-        TwitterClient.sharedInstance?.getMyRetweets((User.currentUser?.screenName!)!, count: 50, completionHandler: { (tweets) in
-            self.tweets = tweets
-            for t in self.tweets {
-                dump(t)
-            }
-            self.tableView.reloadData()
         })
     }
     
@@ -177,5 +167,7 @@ extension ProfileViewController: SideBardelegate {
         default:
             break;
         }
+//        sideBar.showSidebar(false)
+//        sideBar.removeFromView()
     }
 }

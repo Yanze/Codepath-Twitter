@@ -39,16 +39,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             } as? (URLSessionDataTask?, Error) -> Void)
     }
     
-    func getMyRetweets(_ screenName: String, count: Int, completionHandler: @escaping ([Tweet]) -> Void) {
-        let parameters = ["screen_name": screenName, "count": count] as [String : Any]
-        get("1.1/statuses/retweets_of_me.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-            let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
-            completionHandler(tweets)
-        }, failure: { (task: URLSessionDataTask, error: NSError) in
-
-            } as? (URLSessionDataTask?, Error) -> Void)
-    }
-    
     func getCurrentUserProfile(_ screen_name: String, completionHandler: @escaping (User) -> Void) {
         get("1.1/users/show.json?screen_name=\(screen_name)", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
             let user = User(dictionary: response as! Dictionary)

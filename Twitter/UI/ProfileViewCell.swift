@@ -22,28 +22,28 @@ class ProfileViewCell: UITableViewCell {
     var tweet: Tweet? {
         didSet {
             
-            if let name = tweet?.retweetedStatus?.originalTweetUser?.name {
-                nameLabel.text = name
-            }
-            if let discrip = tweet?.retweetedStatus?.tweetText {
-                tweetTextLabel.text = discrip
-            }
-            if let screenName = tweet?.retweetedStatus?.originalTweetUser?.screenName {
-                screenNameLabel.text = "@\(screenName)"
-            }
-            if let imgLink = tweet?.retweetedStatus?.originalTweetUser?.profileUrl {
-                userProfileImgView.setImageWith(imgLink)
-            }
-            if let retweetCount = tweet?.retweetCount {
-                retweetCountLabel.text = String(retweetCount)
-            }
-            if let favoCount = tweet?.favoCount {
-                favoCountLabel.text = String(favoCount)
-            }
-            if let createdAt = tweet?.createdAt {
-                timeLabel.text = timeAgoSince(createdAt)
-            }
+            let name = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.originalTweetUser?.name : tweet?.user?.name
+            nameLabel.text = name
             
+            let tweetText = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.tweetText : tweet?.text
+            tweetTextLabel.text = tweetText
+
+            let screenName = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.originalTweetUser?.screenName : tweet?.user?.screenName
+            if let sname = screenName {
+                screenNameLabel.text = "@\(sname)"
+            }
+
+            let imgLink = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.originalTweetUser?.profileUrl : tweet?.user?.profileUrl
+            userProfileImgView.setImageWith(imgLink!)
+
+            let retweetCount = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.retweetCount : tweet?.retweetCount
+            retweetCountLabel.text = String(describing: retweetCount)
+            
+            let favoCount = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.favoCount : tweet?.favoCount
+            favoCountLabel.text = String(describing: favoCount)
+            
+            let createdAt = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.createdAt : tweet?.createdAt
+            timeLabel.text = timeAgoSince(createdAt!)            
             
         }
     }

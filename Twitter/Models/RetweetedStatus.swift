@@ -17,7 +17,13 @@ class RetweetedStatus: NSObject {
     
     init(dictionary: Dictionary<String, Any>) {
         tweetText = dictionary["text"] as? String
-        createdAt = dictionary["created_at"] as? Date
+        
+        if let createdTime = dictionary["created_at"] as? String {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "E MMM d HH:mm:ss Z yyyy"
+            createdAt = formatter.date(from: createdTime)
+        }
+
         retweetCount = dictionary["retweet_count"] as? Int
         favoCount = dictionary["favorite_count"] as? Int
         originalTweetUser = User(dictionary: dictionary["user"] as! Dictionary<String, Any>)

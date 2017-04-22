@@ -128,6 +128,15 @@ class ProfileViewController: UIViewController {
         usersBgView.layer.cornerRadius = 4
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "profilePageTweetDetail" {
+            let vc = segue.destination as! DetailViewController
+            if let indexPath = tableView.indexPathForSelectedRow {
+                vc.tweet = self.tweets[indexPath.row]
+                
+            }
+        }
+    }
 
 }
 

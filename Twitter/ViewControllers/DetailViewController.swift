@@ -138,7 +138,7 @@ class DetailViewController: UIViewController {
             nameLabel.text = name
         }
         if let username = tweet.user?.screenName {
-            usernameLabel.text = username
+            usernameLabel.text = "@\(username)"
         }
     }
     

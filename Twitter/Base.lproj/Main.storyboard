@@ -555,7 +555,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fo-U2-ZDE">
-                                <rect key="frame" x="97" y="133" width="42" height="13.5"/>
+                                <rect key="frame" x="97" y="133" width="265" height="13.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -577,11 +577,11 @@
                             <constraint firstItem="GeN-M2-m8G" firstAttribute="leading" secondItem="OAm-Po-XRe" secondAttribute="leadingMargin" constant="13" id="Fbu-3h-lIe"/>
                             <constraint firstItem="LY9-8z-HDx" firstAttribute="leading" secondItem="OAm-Po-XRe" secondAttribute="leading" constant="20" id="J6X-bg-f5L"/>
                             <constraint firstItem="0fo-U2-ZDE" firstAttribute="top" secondItem="zJO-Yw-4L3" secondAttribute="bottom" constant="1" id="Vyd-VZ-gOq"/>
+                            <constraint firstItem="0fo-U2-ZDE" firstAttribute="trailing" secondItem="zJO-Yw-4L3" secondAttribute="trailing" id="XI6-bD-qE9"/>
                             <constraint firstItem="0fo-U2-ZDE" firstAttribute="leading" secondItem="zJO-Yw-4L3" secondAttribute="leading" id="Z5e-IL-bli"/>
                             <constraint firstItem="LY9-8z-HDx" firstAttribute="centerX" secondItem="OAm-Po-XRe" secondAttribute="centerX" id="d8m-qC-cnn"/>
                             <constraint firstItem="LY9-8z-HDx" firstAttribute="top" secondItem="rbx-22-BXs" secondAttribute="bottom" constant="130" id="oaj-w0-Ew4"/>
                             <constraint firstItem="GeN-M2-m8G" firstAttribute="top" secondItem="rbx-22-BXs" secondAttribute="bottom" constant="40" id="qZb-hM-Qku"/>
-                            <constraint firstItem="0fo-U2-ZDE" firstAttribute="trailing" secondItem="zJO-Yw-4L3" secondAttribute="trailing" constant="-223" id="ssN-yB-KfM"/>
                             <constraint firstAttribute="trailing" secondItem="LY9-8z-HDx" secondAttribute="trailing" constant="20" id="vrv-E6-3Fv"/>
                         </constraints>
                     </view>
@@ -858,6 +858,7 @@
                                                     <outlet property="timeLabel" destination="SSK-Ed-wok" id="cgc-QP-eMy"/>
                                                     <outlet property="tweetTextLabel" destination="8YN-C1-xuC" id="9Z1-X8-tw3"/>
                                                     <outlet property="userProfileImgView" destination="yZh-cI-Gxl" id="Rvh-lp-prx"/>
+                                                    <segue destination="sfr-Sm-bTa" kind="show" identifier="profilePageTweetDetail" id="YAE-TZ-ISU"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -1046,7 +1047,7 @@
         <image name="users (1)" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MyI-oH-zUA"/>
         <segue reference="MbF-Mi-HW0"/>
+        <segue reference="YAE-TZ-ISU"/>
     </inferredMetricsTieBreakers>
 </document>

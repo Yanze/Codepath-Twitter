@@ -31,6 +31,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     func getUserTimeline(_ screenName: String, count: Int?, completionHandler: @escaping ([Tweet]) -> Void) {
         let parameters = ["screen_name": screenName, "count": count!, "include_entities": true, "contributor_details": true] as [String : Any]
         get("1.1/statuses/user_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+            print(response)
             let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
             completionHandler(tweets)
         }, failure: { (task: URLSessionDataTask, error: NSError) in

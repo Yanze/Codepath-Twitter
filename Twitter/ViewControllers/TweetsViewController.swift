@@ -13,16 +13,22 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate, SideBardelegate  {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var leftBarItem: UIBarButtonItem!
-
-
+    
+    enum TweetDataSourceType {
+        case timeLine
+        case mentions
+    }
+    
     var tweets: [Tweet]!
     var tweetfromReply: Tweet?
     var sideBar = SideBar()
+    var tweetDataSourceType: TweetDataSourceType = .timeLine
+    
     
     
     override func viewDidLoad() {
@@ -33,44 +39,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         sideBar = SideBar(sourceView: view, menuItems: ["Profile", "Timeline", "Mentioned", "Log out"])
         sideBar.delegate = self
         
-        getAllTweets()
+        if tweetDataSourceType == .timeLine {
+            getAllTweets()
+            self.navigationItem.title = "Timeline"
+        }else if tweetDataSourceType == .mentions {
+            getAllMentions()
+            self.navigationItem.title = "Mentions"
+        }
         pullToRefresh()
 
-    }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-//            self.tweets = tweets
-//            self.tableView.reloadData()
-//        }, failure: { (error: NSError) in
-//            print(error.localizedDescription)
-//        })
-//    }
-    
-    func sideBarModeChanged(_ mode: Bool) {
-        view.layoutIfNeeded()
-        leftBarItem.tintColor = mode ? .clear : .white
-    }
-
-    func sideBarDidSelecteButtonAtIndex(_ index: Int) {
-        switch (index) {
-        case 0:
-            let profileVc = self.storyboard?.instantiateViewController(withIdentifier: "profileVC")
-            self.navigationController?.pushViewController(profileVc!, animated: true)
-        case 1:
-            let timelineVc = self.storyboard?.instantiateViewController(withIdentifier: "timelineVC")
-            self.navigationController?.pushViewController(timelineVc!, animated: true)
-//        case 2:
-            
-        case 3:
-            Helpers.sharedInstance.logout()
-            break;
-        default:
-            break;
-        }
-//        sideBar.showSidebar(false)
-//        sideBar.removeFromView()
     }
     
     
@@ -124,6 +101,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func InsertTweet(tweet: Tweet) {
         tweets.insert(tweet, at: 0)
         tableView.reloadData()
+    }
+    
+    func getAllMentions() {
+        TwitterClient.sharedInstance?.getMentions(completionHandler: { (tweets) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        })
     }
     
     
@@ -190,25 +174,6 @@ extension TweetsViewController {
         performSegue(withIdentifier: "replySegue", sender: nil)
     }
     
-    
-    
-//    func showActionSheet(tweet: Tweet, cell: TweetCell) {
-//        let actionSheet = UIAlertController()
-//        let retweet = UIAlertAction(title: "Retweet", style: UIAlertActionStyle.default) {(ACTION) in
-//            // retweet
-//            TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
-//                cell.increaseRetweetCount()
-//            }, failure: { (error) in
-//                print(error)
-//            })
-//        }
-//        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {(ACTION) in}
-//        
-//        actionSheet.addAction(retweet)
-//        actionSheet.addAction(cancel)
-//        self.present(actionSheet, animated: true, completion: nil)
-//    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tweetDetailSegue" {
             let vc = segue.destination as! DetailViewController
@@ -231,6 +196,15 @@ extension TweetsViewController {
         
     }
     
-    
+}
 
+extension TweetsViewController: SideBardelegate {
+    func sideBarModeChanged(_ mode: Bool) {
+        view.layoutIfNeeded()
+        leftBarItem.tintColor = mode ? .clear : .white
+    }
+    
+    func sideBarDidSelecteButtonAtIndex(_ index: Int) {
+        Helpers.sharedInstance.shiftViewControllers(index, navController: self.navigationController!)
+    }
 }

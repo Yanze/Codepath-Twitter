@@ -972,6 +972,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sH2-Ol-r2G">
+                        <barButtonItem key="leftBarButtonItem" image="move-to-next" id="RaG-Ih-8J7">
+                            <connections>
+                                <action selector="sideMenuToggle:" destination="gGJ-NR-jv4" id="aoD-c8-UdB"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="compose" id="mf0-t6-8Rq">
                             <connections>
                                 <segue destination="yrV-A4-K3X" kind="show" id="MbF-Mi-HW0"/>
@@ -996,7 +1001,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynH-F9-vi0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3517.5999999999999" y="-253.2233883058471"/>
+            <point key="canvasLocation" x="3980" y="-324"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tB9-hY-VYe">
@@ -1032,7 +1037,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fos-wb-d8j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2873" y="-253"/>
+            <point key="canvasLocation" x="3230" y="-810"/>
         </scene>
     </scenes>
     <resources>

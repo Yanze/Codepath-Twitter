@@ -57,6 +57,11 @@ class ProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func sideMenuToggle(_ sender: Any) {
+        
+    }
+    
     func getUserProfile() {
         TwitterClient.sharedInstance?.getCurrentUserProfile((User.currentUser?.screenName!)!, completionHandler: { (user) in
             self.user = user
@@ -73,7 +78,7 @@ class ProfileViewController: UIViewController {
             SVProgressHUD.dismiss()
         })
     }
-    
+
     func setupUserProfile() {
         if let name = user?.name {
             nameLabel.text = name
@@ -127,6 +132,8 @@ class ProfileViewController: UIViewController {
             }
         }
     }
+    
+    
 
 }
 
@@ -145,29 +152,15 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-
 extension ProfileViewController: SideBardelegate {
     func sideBarModeChanged(_ mode: Bool) {
         view.layoutIfNeeded()
     }
     
     func sideBarDidSelecteButtonAtIndex(_ index: Int) {
-        switch (index) {
-        case 0:
-            let profileVc = self.storyboard?.instantiateViewController(withIdentifier: "profileVC")
-            self.navigationController?.pushViewController(profileVc!, animated: true)
-        case 1:
-            let timelineVc = self.storyboard?.instantiateViewController(withIdentifier: "timelineVC")
-            self.navigationController?.pushViewController(timelineVc!, animated: true)
-            //        case 2:
-            
-        case 3:
-            Helpers.sharedInstance.logout()
-            break;
-        default:
-            break;
-        }
-//        sideBar.showSidebar(false)
-//        sideBar.removeFromView()
+        Helpers.sharedInstance.shiftViewControllers(index, navController: self.navigationController!)
     }
 }
+
+
+

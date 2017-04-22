@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class Helpers: NSObject {
     
     static let sharedInstance = Helpers()
@@ -22,6 +23,29 @@ class Helpers: NSObject {
     
     func logout() {
         TwitterClient.sharedInstance?.logout()
+    }
+    
+    func shiftViewControllers(_ index: Int, navController: UINavigationController) {
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        
+        switch (index) {
+        case 0:
+            let profileVc = sb.instantiateViewController(withIdentifier: "profileVC")
+            navController.pushViewController(profileVc, animated: true)
+        case 1:
+            let timelineVc = sb.instantiateViewController(withIdentifier: "timelineVC") as! TweetsViewController
+            timelineVc.tweetDataSourceType = .timeLine
+            navController.pushViewController(timelineVc, animated: true)
+        case 2:
+            let timelineVc = sb.instantiateViewController(withIdentifier: "timelineVC") as! TweetsViewController
+            timelineVc.tweetDataSourceType = .mentions
+            navController.pushViewController(timelineVc, animated: true)
+        case 3:
+            Helpers.sharedInstance.logout()
+            break;
+        default:
+            break;
+        }
     }
     
 }

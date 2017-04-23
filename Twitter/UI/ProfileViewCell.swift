@@ -37,11 +37,14 @@ class ProfileViewCell: UITableViewCell {
             userProfileImgView.setImageWith(imgLink!)
 
             let retweetCount = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.retweetCount : tweet?.retweetCount
-            retweetCountLabel.text = String(describing: retweetCount)
-            
+            if let rtcount = retweetCount {
+                retweetCountLabel.text = String(describing: rtcount)
+            }
             let favoCount = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.favoCount : tweet?.favoCount
-            favoCountLabel.text = String(describing: favoCount)
-            
+            if let favCount = favoCount {
+               favoCountLabel.text = String(describing: favCount)
+            }
+   
             let createdAt = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.createdAt : tweet?.createdAt
             timeLabel.text = timeAgoSince(createdAt!)            
             

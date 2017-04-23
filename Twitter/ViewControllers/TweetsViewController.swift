@@ -13,7 +13,7 @@ import SVProgressHUD
 
 
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate, RetweetDelegate, FavoriteDelegate, ReplyDelegate, UnRetweetDelegate, UnFavoTweetDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate {
 
 
     @IBOutlet weak var tableView: UITableView!
@@ -125,13 +125,49 @@ extension TweetsViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
-        cell.retweetDelegate = self
-        cell.favoTweetDelegate = self
-        cell.replyTweetDelegate = self
-        cell.unRetweetDelegate = self
-        cell.unFavoTweetDelegate = self
+        cell.tweetDelegate = self
         return cell
 
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tweetDetailSegue" {
+            let vc = segue.destination as! DetailViewController
+            if let indexPath = tableView.indexPathForSelectedRow {
+                vc.tweet = self.tweets[indexPath.row]
+                let cell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
+                vc.detailviewRetweetDelegate = cell as? DetailViewRetweetDelegate
+                vc.detailviewLikesDelegate = cell as? DetailViewLikesDelegate
+
+            }
+        }
+        else if segue.identifier == "composeSegue" {
+            let composeVc = segue.destination as! ComposeViewController
+            composeVc.delegate = self
+        }
+        else if segue.identifier == "replySegue" {
+            let vc = segue.destination as! DetailViewController
+            vc.tweet = tweetfromReply
+        }
+        
+    }
+    
+}
+
+extension TweetsViewController: SideBardelegate {
+    func sideBarModeChanged(_ mode: Bool) {
+        view.layoutIfNeeded()
+        leftBarItem.tintColor = mode ? .clear : .white
+    }
+    
+    func sideBarDidSelecteButtonAtIndex(_ index: Int) {
+        Helpers.sharedInstance.shiftViewControllers(index, navController: self.navigationController!)
+    }
+}
+
+extension TweetsViewController:  TweetDelegate{
+    func userProfileImageTapped(screenName: String) {
+        print(screenName)
     }
     
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell) {
@@ -172,39 +208,5 @@ extension TweetsViewController {
     func replyButtonPressed(tweet: Tweet, cell: TweetCell) {
         tweetfromReply = tweet
         performSegue(withIdentifier: "replySegue", sender: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "tweetDetailSegue" {
-            let vc = segue.destination as! DetailViewController
-            if let indexPath = tableView.indexPathForSelectedRow {
-                vc.tweet = self.tweets[indexPath.row]
-                let cell = tableView.cellForRow(at: tableView.indexPathForSelectedRow!)
-                vc.detailviewRetweetDelegate = cell as? DetailViewRetweetDelegate
-                vc.detailviewLikesDelegate = cell as? DetailViewLikesDelegate
-
-            }
-        }
-        else if segue.identifier == "composeSegue" {
-            let composeVc = segue.destination as! ComposeViewController
-            composeVc.delegate = self
-        }
-        else if segue.identifier == "replySegue" {
-            let vc = segue.destination as! DetailViewController
-            vc.tweet = tweetfromReply
-        }
-        
-    }
-    
-}
-
-extension TweetsViewController: SideBardelegate {
-    func sideBarModeChanged(_ mode: Bool) {
-        view.layoutIfNeeded()
-        leftBarItem.tintColor = mode ? .clear : .white
-    }
-    
-    func sideBarDidSelecteButtonAtIndex(_ index: Int) {
-        Helpers.sharedInstance.shiftViewControllers(index, navController: self.navigationController!)
     }
 }

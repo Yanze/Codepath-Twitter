@@ -972,7 +972,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sH2-Ol-r2G">
-                        <barButtonItem key="leftBarButtonItem" image="move-to-next" id="RaG-Ih-8J7">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" image="move-to-next" id="RaG-Ih-8J7">
                             <connections>
                                 <action selector="sideMenuToggle:" destination="gGJ-NR-jv4" id="aoD-c8-UdB"/>
                             </connections>
@@ -1052,7 +1052,7 @@
         <image name="users (1)" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MbF-Mi-HW0"/>
         <segue reference="YAE-TZ-ISU"/>
+        <segue reference="MbF-Mi-HW0"/>
     </inferredMetricsTieBreakers>
 </document>

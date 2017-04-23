@@ -127,12 +127,12 @@ class DetailViewController: UIViewController {
     func setupUserProfileImg() {
         userProfileImgView.layer.cornerRadius = 4
         userProfileImgView.layer.masksToBounds = true
-        
-        
-        let imgLink = tweet.isRetweeted! ? tweet.retweetedStatus?.originalTweetUser?.profileUrl : tweet.user?.profileUrl
-        
-        userProfileImgView.setImageWith(imgLink!)
-        
+
+        if tweet.retweetedStatus?.originalTweetUser?.profileUrl != nil {
+            userProfileImgView.setImageWith((tweet.retweetedStatus?.originalTweetUser?.profileUrl)!)
+        }else {
+            userProfileImgView.setImageWith((tweet.user?.profileUrl)!)
+        }
     }
     
     func propulateData() {

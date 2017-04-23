@@ -9,35 +9,51 @@
 import UIKit
 import AFNetworking
 
-protocol RetweetDelegate {
+//protocol RetweetDelegate {
+//    func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell)
+//}
+//
+//protocol UnRetweetDelegate {
+//    func cellUnRetweet(tweet: Tweet, cell: TweetCell)
+//}
+//
+//protocol FavoriteDelegate {
+//    func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell)
+//}
+//
+//protocol UnFavoTweetDelegate {
+//    func unfavoTweetButtonPressed(tweet: Tweet, cell: TweetCell)
+//}
+//
+//protocol ReplyDelegate {
+//    func replyButtonPressed(tweet: Tweet, cell: TweetCell)
+//}
+//
+//protocol ProfileImageDelegate {
+//    func userProfileImageTapped(screenName:String)
+//}
+
+protocol TweetDelegate {
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell)
-}
-
-protocol UnRetweetDelegate {
     func cellUnRetweet(tweet: Tweet, cell: TweetCell)
-}
-
-protocol FavoriteDelegate {
     func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell)
-}
-
-protocol UnFavoTweetDelegate {
     func unfavoTweetButtonPressed(tweet: Tweet, cell: TweetCell)
-}
-
-protocol ReplyDelegate {
     func replyButtonPressed(tweet: Tweet, cell: TweetCell)
+    func userProfileImageTapped(screenName:String)
 }
-
 
 class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDelegate {
     
-    var retweetDelegate: RetweetDelegate?
-    var favoTweetDelegate: FavoriteDelegate?
-    var replyTweetDelegate: ReplyDelegate?
+//    var retweetDelegate: RetweetDelegate?
+//    var favoTweetDelegate: FavoriteDelegate?
+//    var replyTweetDelegate: ReplyDelegate?
+//    var profileImageviewDelegate: ProfileImageDelegate?
+//    
+//    var unRetweetDelegate: UnRetweetDelegate?
+//    var unFavoTweetDelegate: UnFavoTweetDelegate?
     
-    var unRetweetDelegate: UnRetweetDelegate?
-    var unFavoTweetDelegate: UnFavoTweetDelegate?
+    var tweetDelegate: TweetDelegate?
+    var didImageTapSet: Bool = false
     
     @IBOutlet weak var userProfileImgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -53,26 +69,26 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
     
     @IBAction func retweetMessage(_ sender: UIButton) {
         if !(tweet?.isRetweeted)! {
-            self.retweetDelegate?.cellRetweetButtonPressed(tweet: tweet!, cell: self)
+            self.tweetDelegate?.cellRetweetButtonPressed(tweet: tweet!, cell: self)
         }else {
-            self.unRetweetDelegate?.cellUnRetweet(tweet: tweet!, cell: self)
+            self.tweetDelegate?.cellUnRetweet(tweet: tweet!, cell: self)
         }
        
     }
     
     @IBAction func favoriteTweet(_ sender: UIButton) {
         if !(tweet?.isFavorited)! {
-            self.favoTweetDelegate?.favoriteTweetButtonPressed(tweet: tweet!, cell: self)
+            self.tweetDelegate?.favoriteTweetButtonPressed(tweet: tweet!, cell: self)
         }
         else {
-            self.unFavoTweetDelegate?.unfavoTweetButtonPressed(tweet: tweet!, cell: self)
+            self.tweetDelegate?.unfavoTweetButtonPressed(tweet: tweet!, cell: self)
         }
     }
     
     @IBAction func replyButtonPressed(_ sender: UIButton) {
-        self.replyTweetDelegate?.replyButtonPressed(tweet: tweet!, cell: self)
+        self.tweetDelegate?.replyButtonPressed(tweet: tweet!, cell: self)
     }
-    
+
     
     func increaseRetweetCount(newcount: Int) {
         tweet?.isRetweeted = true
@@ -119,10 +135,21 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
             decreaseFavoCountAndImageColor(newcount: tweet.favoCount)
         }
     }
+    
+    
+    func shiftToProfileViewController() {
+        self.tweetDelegate?.userProfileImageTapped(screenName: (tweet?.user?.screenName!)!)
+    }
 
     var tweet: Tweet? {
         didSet {
-           
+            if !didImageTapSet {
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(shiftToProfileViewController))
+                userProfileImgView.isUserInteractionEnabled = true
+                userProfileImgView.addGestureRecognizer(tapGestureRecognizer)
+                didImageTapSet = true
+            }
+
             userProfileImgView.layer.cornerRadius = 4
             userProfileImgView.layer.masksToBounds = true
 
@@ -174,6 +201,8 @@ class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDele
         
         
     }
+    
+    
     
  
 

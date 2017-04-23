@@ -43,7 +43,11 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.navigationItem.hidesBackButton = true
+
+        
     }
+    
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -161,6 +165,8 @@ extension ProfileViewController: SideBardelegate {
         Helpers.sharedInstance.shiftViewControllers(index, navController: self.navigationController!)
     }
 }
+
+
 
 
 

@@ -9,30 +9,6 @@
 import UIKit
 import AFNetworking
 
-//protocol RetweetDelegate {
-//    func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell)
-//}
-//
-//protocol UnRetweetDelegate {
-//    func cellUnRetweet(tweet: Tweet, cell: TweetCell)
-//}
-//
-//protocol FavoriteDelegate {
-//    func favoriteTweetButtonPressed(tweet: Tweet, cell: TweetCell)
-//}
-//
-//protocol UnFavoTweetDelegate {
-//    func unfavoTweetButtonPressed(tweet: Tweet, cell: TweetCell)
-//}
-//
-//protocol ReplyDelegate {
-//    func replyButtonPressed(tweet: Tweet, cell: TweetCell)
-//}
-//
-//protocol ProfileImageDelegate {
-//    func userProfileImageTapped(screenName:String)
-//}
-
 protocol TweetDelegate {
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell)
     func cellUnRetweet(tweet: Tweet, cell: TweetCell)
@@ -43,14 +19,6 @@ protocol TweetDelegate {
 }
 
 class TweetCell: UITableViewCell, DetailViewRetweetDelegate, DetailViewLikesDelegate {
-    
-//    var retweetDelegate: RetweetDelegate?
-//    var favoTweetDelegate: FavoriteDelegate?
-//    var replyTweetDelegate: ReplyDelegate?
-//    var profileImageviewDelegate: ProfileImageDelegate?
-//    
-//    var unRetweetDelegate: UnRetweetDelegate?
-//    var unFavoTweetDelegate: UnFavoTweetDelegate?
     
     var tweetDelegate: TweetDelegate?
     var didImageTapSet: Bool = false

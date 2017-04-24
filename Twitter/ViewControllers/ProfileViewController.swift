@@ -13,8 +13,7 @@ import SVProgressHUD
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var dividerView1: UIView!
-    @IBOutlet weak var dividerView2: UIView!
-    @IBOutlet weak var deviderView3: UIView!
+
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -29,54 +28,46 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var settingsBgView: UIView!
     @IBOutlet weak var usersBgView: UIView!
 
+    enum TweetDataSourceType {
+        case currentLoggedInUser
+    }
+    
     var sideBar = SideBar()
     var user: User?
     var tweets = [Tweet]()
-    
+    var tweetDataSourceType: TweetDataSourceType?
+    var screenName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         sideBar = SideBar(sourceView: view, menuItems: ["Profile", "Timeline", "Mentioned", "Log out"])
         sideBar.delegate = self
-
         tableView.delegate = self
         tableView.dataSource = self
         self.navigationItem.hidesBackButton = true
 
+        if tweetDataSourceType == .currentLoggedInUser {
+            getUserProfile(screenName: (User.currentUser?.screenName)!)
+            getUserTimeLine(screenName: (User.currentUser?.screenName)!)
+        }else if screenName != nil {
+            getUserProfile(screenName: screenName!)
+            getUserTimeLine(screenName: screenName!)
+        }
         
     }
     
-
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        getUserProfile()
-        getUserTimeLine()
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    @IBAction func sideMenuToggle(_ sender: Any) {
-        
-    }
-    
-    func getUserProfile() {
-        TwitterClient.sharedInstance?.getCurrentUserProfile((User.currentUser?.screenName!)!, completionHandler: { (user) in
+    func getUserProfile(screenName: String) {
+        TwitterClient.sharedInstance?.getCurrentUserProfile(screenName, completionHandler: { (user) in
             self.user = user
             self.setupUserProfile()
             self.tableView.reloadData()
         })
     }
     
-    func getUserTimeLine() {
+    func getUserTimeLine(screenName: String) {
         SVProgressHUD.show()
-        TwitterClient.sharedInstance?.getUserTimeline((User.currentUser?.screenName!)!, count: 20, completionHandler: { (tweets) in
+        TwitterClient.sharedInstance?.getUserTimeline(screenName, count: 20, completionHandler: { (tweets) in
             self.tweets = tweets
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
@@ -115,8 +106,8 @@ class ProfileViewController: UIViewController {
         containsTableView.layer.borderWidth = 1
         
         dividerView1.backgroundColor = UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1)
-        dividerView2.backgroundColor = UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1)
-        deviderView3.backgroundColor = UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1)
+//        dividerView2.backgroundColor = UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1)
+//        deviderView3.backgroundColor = UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1)
         
         settingsBgView.layer.borderWidth = 1.5
         settingsBgView.layer.borderColor = UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1).cgColor
@@ -137,8 +128,6 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    
-
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {

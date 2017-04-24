@@ -18,6 +18,7 @@ class ProfileViewCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var retweetCountLabel: UILabel!
     @IBOutlet weak var favoCountLabel: UILabel!
+    @IBOutlet weak var retweetedByLabel: UILabel!
 
     var tweet: Tweet? {
         didSet {
@@ -48,6 +49,13 @@ class ProfileViewCell: UITableViewCell {
             let createdAt = (tweet?.isRetweeted)! ? tweet?.retweetedStatus?.createdAt : tweet?.createdAt
             timeLabel.text = timeAgoSince(createdAt!)            
             
+            if tweet?.retweetedStatus?.originalTweetUser?.name != nil {
+                if let name = tweet?.retweetedStatus?.originalTweetUser?.name {
+                    retweetedByLabel.text = name
+                }
+            }else {
+                retweetedByLabel.text = User.currentUser?.name
+            }
         }
     }
     

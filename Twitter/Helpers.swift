@@ -30,7 +30,8 @@ class Helpers: NSObject {
         
         switch (index) {
         case 0:
-            let profileVc = sb.instantiateViewController(withIdentifier: "profileVC")
+            let profileVc = sb.instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
+            profileVc.tweetDataSourceType = .currentLoggedInUser
             navController.pushViewController(profileVc, animated: true)
         case 1:
             let timelineVc = sb.instantiateViewController(withIdentifier: "timelineVC") as! TweetsViewController

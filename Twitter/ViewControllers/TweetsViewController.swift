@@ -15,7 +15,6 @@ import SVProgressHUD
 
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InsertTweetDelegate {
 
-
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var leftBarItem: UIBarButtonItem!
     
@@ -167,13 +166,14 @@ extension TweetsViewController: SideBardelegate {
 
 extension TweetsViewController:  TweetDelegate{
     func userProfileImageTapped(screenName: String) {
-        print(screenName)
+        let profileVc = self.storyboard?.instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
+        profileVc.screenName = screenName
+        self.navigationController?.pushViewController(profileVc, animated: true)
     }
     
     func cellRetweetButtonPressed(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.retweetMessage(tweet.id!, success: { (tweet) in
             cell.increaseRetweetCount(newcount: tweet.retweetCount)
-            print("ReTweet: \(tweet.retweetCount)")
         }, failure: { (error) in
             print(error)
         })
@@ -182,7 +182,6 @@ extension TweetsViewController:  TweetDelegate{
     func cellUnRetweet(tweet: Tweet, cell: TweetCell) {
         TwitterClient.sharedInstance?.untweetMessage(tweet.id!, success: { (tweet) in
             cell.decreaseRetweetCount(newcount: tweet.retweetCount - 1)
-            print("unReTweet: \(tweet.retweetCount)")
         }, failure: { (error) in
             print("TweetsVC unretweet error: \(error.localizedDescription)")
         })

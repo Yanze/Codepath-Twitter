@@ -38,11 +38,20 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUserProfileImg()
-        setupNameLabel()
+        propulateData()
         setupTweetTime()
-        setuptext()
         setupRetweetsandFavoCount()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(shiftToProfileViewController))
+        userProfileImgView.isUserInteractionEnabled = true
+        userProfileImgView.addGestureRecognizer(tapGestureRecognizer)
+        
+    }
+    
+    func shiftToProfileViewController() {
+        let profileVc = self.storyboard?.instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
+        profileVc.screenName = tweet.user?.screenName!
+        self.navigationController?.pushViewController(profileVc, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,18 +137,25 @@ class DetailViewController: UIViewController {
     func setupUserProfileImg() {
         userProfileImgView.layer.cornerRadius = 4
         userProfileImgView.layer.masksToBounds = true
-        if let imgLink = tweet.user?.profileUrl {
-            userProfileImgView.setImageWith(imgLink)
+
+        if tweet.retweetedStatus?.originalTweetUser?.profileUrl != nil {
+            userProfileImgView.setImageWith((tweet.retweetedStatus?.originalTweetUser?.profileUrl)!)
+        }else {
+            userProfileImgView.setImageWith((tweet.user?.profileUrl)!)
         }
     }
     
-    func setupNameLabel() {
-        if let name = tweet.user?.name {
-            nameLabel.text = name
+    func propulateData() {
+        let name = tweet.isRetweeted! ? tweet.retweetedStatus?.originalTweetUser?.name : tweet.user?.name
+        nameLabel.text = name
+        
+        let screenName = tweet.isRetweeted! ? tweet.retweetedStatus?.originalTweetUser?.screenName : tweet.user?.screenName
+        if let sname = screenName {
+            usernameLabel.text = "@\(sname)"
         }
-        if let username = tweet.user?.screenName {
-            usernameLabel.text = username
-        }
+        let tweetText = tweet.isRetweeted! ? tweet.retweetedStatus?.tweetText : tweet.text
+        tweetTextLabel.text = tweetText
+
     }
     
     func setupTweetTime() {
@@ -153,12 +169,7 @@ class DetailViewController: UIViewController {
             createdAtLabel.text = dateStr
         }
     }
-    
-    func setuptext() {
-        if let tweetText = tweet.text {
-            tweetTextLabel.text = tweetText
-        }
-    }
+
     
     func setupRetweetsandFavoCount() {
         retweetsCountLabel.text =  String(tweet.retweetCount)

@@ -19,31 +19,53 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (NSError) -> Void) {
         let parameters: [String: String] = ["count": "200"]
-        
         get("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-            let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
-
+            let tweets = Tweet.tweets(dictionaries: (response as? [Dictionary])!)
             success(tweets)
         }, failure: { (task: URLSessionDataTask, error: NSError) in
             failure(error)
         } as? (URLSessionDataTask?, Error) -> Void)
     }
     
+    func getUserTimeline(_ screenName: String, count: Int?, completionHandler: @escaping ([Tweet]) -> Void) {
+        let parameters = ["screen_name": screenName, "count": count!, "include_entities": true, "contributor_details": true] as [String : Any]
+        get("1.1/statuses/user_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+            let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
+            completionHandler(tweets)
+        }, failure: { (task: URLSessionDataTask, error: NSError) in
+            print("error when getting user_timeline tweets \(error.localizedDescription)")
+            } as? (URLSessionDataTask?, Error) -> Void)
+    }
+    
+    func getCurrentUserProfile(_ screen_name: String, completionHandler: @escaping (User) -> Void) {
+        get("1.1/users/show.json?screen_name=\(screen_name)", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+            let user = User(dictionary: response as! Dictionary)
+            completionHandler(user)
+        }, failure: { (task: URLSessionDataTask?, error: NSError) in
+            print("error in twitter client is gettign user account info \(error.localizedDescription)")
+            } as? (URLSessionDataTask?, Error) -> Void)
+    }
+    
+    func getMentions(completionHandler: @escaping ([Tweet]) -> Void) {
+        get("1.1/statuses/mentions_timeline.json?count=25", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
+            let tweets = Tweet.tweets(dictionaries: response as! [Dictionary])
+            completionHandler(tweets)
+        }, failure: { (task: URLSessionDataTask?, error: NSError) in
+            print("error in twitter client is gettign user account info \(error.localizedDescription)")
+            } as? (URLSessionDataTask?, Error) -> Void)
+    }
+    
     func postTweetMessage(_ tweetMessage: String!, in_reply_to_status_id: Int?, completionHandler: @escaping ([String: Any]) -> Void) {
-   
         var parameters: [String: String] = ["status": tweetMessage]
-        
         if let id = in_reply_to_status_id {
             parameters["in_reply_to_status_id"] = String(id)
         }
- 
         post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (operation, response) in
             completionHandler(["isSuccessful": true, "responseObject": response as Any])
         }) { (operation, error) in
             print("error when post a new tweet: \(error.localizedDescription)")
             completionHandler(["error": error.localizedDescription])
         }
-
     }
     
     func retweetMessage(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void){
@@ -59,7 +81,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     func untweetMessage(_ id: Int, success: @escaping (Tweet) -> Void, failure: @escaping (NSError) -> Void) {
         post("1.1/statuses/unretweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) in
             let tweet = Tweet(dictionary: response as! Dictionary)
-            print(response as Any)
             success(tweet)
         }) { (operation, error) in
             print("error when untweet: \(error.localizedDescription)")
@@ -91,12 +112,10 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func currentAccount(success: @escaping (User) -> Void, failure: @escaping (NSError) -> Void) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any) in
-            
             let user = User(dictionary: response as! Dictionary)
             success(user)
-   
         }, failure: { (task: URLSessionDataTask?, error: NSError) in
-            print("error in twitter client in appdelegate when getting my account info")
+            print("error in twitter client getting my account info")
             failure(error)
         } as? (URLSessionDataTask?, Error) -> Void)
     }

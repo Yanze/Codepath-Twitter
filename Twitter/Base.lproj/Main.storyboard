@@ -833,6 +833,7 @@
                                                     <outlet property="favoCountLabel" destination="cMa-cY-TML" id="CbG-Ai-VbH"/>
                                                     <outlet property="nameLabel" destination="cu8-b8-Stt" id="P2o-bW-ogE"/>
                                                     <outlet property="retweetCountLabel" destination="WlL-XG-bTu" id="1kX-oi-pPD"/>
+                                                    <outlet property="retweetedByImgIcon" destination="38g-ge-qXH" id="bBY-Zp-MQg"/>
                                                     <outlet property="retweetedByLabel" destination="Daf-rc-vKX" id="Ncy-FP-JcP"/>
                                                     <outlet property="screenNameLabel" destination="bVC-3d-bKQ" id="8wF-qg-UL8"/>
                                                     <outlet property="timeLabel" destination="SSK-Ed-wok" id="cgc-QP-eMy"/>

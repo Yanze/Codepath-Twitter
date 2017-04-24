@@ -42,6 +42,16 @@ class DetailViewController: UIViewController {
         setupTweetTime()
         setupRetweetsandFavoCount()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(shiftToProfileViewController))
+        userProfileImgView.isUserInteractionEnabled = true
+        userProfileImgView.addGestureRecognizer(tapGestureRecognizer)
+        
+    }
+    
+    func shiftToProfileViewController() {
+        let profileVc = self.storyboard?.instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
+        profileVc.screenName = tweet.user?.screenName!
+        self.navigationController?.pushViewController(profileVc, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
